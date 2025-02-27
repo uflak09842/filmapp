@@ -23,13 +23,8 @@ const Register = () => {
           },
         });
         const data = await response.json();
-
-        const formattedData = data.map((item) => ({
-          key: item.iso_3166_1,
-          value: item.native_name,
-        }));
         
-        setCountry(formattedData);
+        setCountry(data);
       } catch (error) {
         console.error('Veri çekme hatası:', error);
       }
