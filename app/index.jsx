@@ -10,9 +10,9 @@ export default function Index() {
     if(!rootNavigationState?.key) return null; // root layout renderlenmedi diye ağlamaması için
 
     if(authState?.authenticated) {
-        return <Redirect href={'/screens/Home'} />
+        return <Redirect href={'/Home'} />
     } else {
-        return <Redirect href={'/screens/auth/Login'} />
+        return <Redirect href={'/auth/Login'} />
     }
 
     return(

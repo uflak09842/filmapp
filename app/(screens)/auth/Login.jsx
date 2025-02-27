@@ -3,8 +3,8 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { router, Link } from 'expo-router';
 import { Formik } from 'formik';
 
-import { useAuth } from '../../context/AuthContext';
-import { LoginSchema } from '../../components/authSchema';
+import { useAuth } from '../../context/AuthContext.jsx';
+import { LoginSchema } from '../../components/authSchema.js';
 
 import styles from './authStyle.js';
 
@@ -100,7 +100,7 @@ const Login = () => {
           )}
         </Formik>
         <View style={styles.footerView}>
-          <Text>Hesabın Yok Mu ? <Link style={styles.linkText} href={'/signup'}>Kayıt ol</Link></Text>
+          <Text>Hesabın Yok Mu ? <Link style={styles.linkText} href={'/auth/Register'}>Kayıt ol</Link></Text>
         </View>
         
       </View>
