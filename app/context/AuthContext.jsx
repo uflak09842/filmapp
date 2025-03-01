@@ -12,18 +12,38 @@ export const AuthProvider = ({ children }) => {
     const [authState, setAuthState ] = useState({
         token: null, 
         authenticated: null,
+        loading: true
     });
 
     useEffect(() => {
         const loadToken = async () => {
-            const token = await SecureStore.getItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY);
+            try {
+                const token = await SecureStore.getItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY);
 
-            if(token) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                console.log(token);
+
+                if(token) {
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+                    setAuthState({
+                        token: token,
+                        authenticated: true,
+                        loading: false
+                    });
+                } else {
+                    setAuthState({
+                        token: null,
+                        authenticated: false,
+                        loading: false
+                    });
+                }
+            } catch (err) {
+                console.error('Token Yüklenirken Bir Sorun Oluştu AuthContext.jsx: ' + err);
 
                 setAuthState({
-                    token: token,
-                    authenticated: true,
+                    token: null,
+                    authenticated: false,
+                    loading: false
                 });
             }
         }
@@ -48,7 +68,8 @@ export const AuthProvider = ({ children }) => {
 
             setAuthState({
                 token: result.data.accessToken,
-                authenticated: true
+                authenticated: true,
+                loading: false
             });
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
@@ -71,7 +92,8 @@ export const AuthProvider = ({ children }) => {
 
         setAuthState({
             token: null,
-            authenticated: false
+            authenticated: false,
+            loading: false
         })
     }
 
