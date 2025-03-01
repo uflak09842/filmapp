@@ -3,24 +3,16 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../components/axiosInstance';
+import styles from '../components/homeScreen/homeScreen.styles';
 
 const Home = () => {
-  const { logout } = useAuth();
-
-  useEffect(() => {
-    const getUser = async () => {
-      const user = await axiosInstance.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/user`);
-
-      console.log(user)
-    } 
-
-    getUser();
-  }, []);
-
   return (
-    <View>
-      <Text>Home</Text>
-      <Button onPress={logout} title={'Çıkış Yap'} />
+    <View style={styles.root}>
+      <View style={styles.container}>
+        <View style={styles.titleView}>
+          <Text>asd</Text>
+        </View>
+      </View>
     </View>
   )
 }
