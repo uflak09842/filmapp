@@ -20,17 +20,19 @@ export const AuthProvider = ({ children }) => {
             try {
                 const token = await SecureStore.getItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY);
 
-                console.log(token);
-
                 if(token) {
                     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
+                    const response = await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/isValidToken`); // backend de sadece middleware ile kontrol ediyorum endpoint olması için oluşturulmuş bir endpoint
+
+                    //token varsa
                     setAuthState({
                         token: token,
                         authenticated: true,
                         loading: false
                     });
                 } else {
+                    //token yoksa
                     setAuthState({
                         token: null,
                         authenticated: false,
@@ -38,8 +40,7 @@ export const AuthProvider = ({ children }) => {
                     });
                 }
             } catch (err) {
-                console.error('Token Yüklenirken Bir Sorun Oluştu AuthContext.jsx: ' + err);
-
+                //middleware'dan yani endpointten hata dönmüşse (if şartı yok her halükarda zaten token sıkıntılı olduğundan auth vermicem)
                 setAuthState({
                     token: null,
                     authenticated: false,
@@ -64,7 +65,9 @@ export const AuthProvider = ({ children }) => {
 
     const login = async ( email, password ) => {
         try {
-            const result = await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/login`, { email, password });
+            const result = await axios.post(`${process.env.EXPO_PUBLIC_AUTH_SERVER_URL}/login`, { email, password });
+
+            console.log(result.data)
 
             setAuthState({
                 token: result.data.accessToken,

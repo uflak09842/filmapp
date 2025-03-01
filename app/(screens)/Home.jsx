@@ -5,7 +5,7 @@ import axios from 'axios';
 const Home = () => {
   useEffect(() => {
     const getUser = async () => {
-      const user = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/auth`);
+      const user = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/user`);
 
       console.log(user);
     } 
