@@ -3,9 +3,9 @@ import { View, Text, TextInput, Button, FlatList, KeyboardAvoidingView, Touchabl
 import { Redirect, router, Link } from 'expo-router';
 import { Formik } from 'formik'
 
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { SelectList } from 'react-native-dropdown-select-list';
-import RegisterSchema from '../../components/authSchema';
+import RegisterSchema from '../components/authSchema';
 
 import styles from './authStyle';
 

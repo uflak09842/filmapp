@@ -2,15 +2,16 @@ import { View, Text, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import axiosInstance from '../components/axiosInstance';
 
 const Home = () => {
   const { logout } = useAuth();
 
   useEffect(() => {
     const getUser = async () => {
-      const user = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/user`);
+      const user = await axiosInstance.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/user`);
 
-      console.log(user);
+      console.log(user)
     } 
 
     getUser();

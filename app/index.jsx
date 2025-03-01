@@ -14,7 +14,7 @@ export default function Index() {
     }
 
     if(authState?.authenticated) {
-        return <Redirect href={'/Home'} />
+        return <Redirect href={'(screens)/Home'} />
     } else {
         return <Redirect href={'/auth/Login'} />
     }

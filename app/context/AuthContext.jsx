@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
+import axiosInstance from "../components/axiosInstance";
 import * as SecureStore from 'expo-secure-store';
 import { Redirect, router } from "expo-router";
 
@@ -96,8 +97,6 @@ export const AuthProvider = ({ children }) => {
         try {
             const result = await axios.post(`${process.env.EXPO_PUBLIC_AUTH_SERVER_URL}/login`, { email, password });
 
-            console.log(result.data)
-
             setAuthState({
                 token: result.data.accessToken,
                 authenticated: true,
@@ -105,6 +104,7 @@ export const AuthProvider = ({ children }) => {
             });
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
 
             await SecureStore.setItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY, result.data.accessToken);
             await SecureStore.setItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY, result.data.refreshToken);
@@ -122,12 +122,17 @@ export const AuthProvider = ({ children }) => {
         try {
             const refreshToken = await SecureStore.getItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY);
 
-            const response = await axios.post(`${process.env.EXPO_PUBLIC_AUTH_SERVER_URL}/logout`, { refreshToken });
-
+            if(refreshToken) {
+                await axios.post(`${process.env.EXPO_PUBLIC_AUTH_SERVER_URL}/logout`, { refreshToken });
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
             await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY);
             await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY);
 
             axios.defaults.headers.common['Authorization'] = '';
+            axiosInstance.defaults.headers.common['Authorization'] = '';
 
             setAuthState({
                 token: null,
@@ -136,19 +141,6 @@ export const AuthProvider = ({ children }) => {
             })
 
             router.replace('/');
-        } catch (err) {
-            console.error(err);
-
-            await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY);
-            await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY);
-
-            axios.defaults.headers.common['Authorization'] = '';
-
-            setAuthState({
-                token: null,
-                authenticated: false,
-                loading: false
-            })
         }
     }
 

@@ -3,8 +3,8 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { router, Link } from 'expo-router';
 import { Formik } from 'formik';
 
-import { useAuth } from '../../context/AuthContext.jsx';
-import { LoginSchema } from '../../components/authSchema.js';
+import { useAuth } from '../context/AuthContext.jsx';
+import { LoginSchema } from '../components/authSchema.js';
 
 import styles from './authStyle.js';
 

@@ -5,7 +5,9 @@ import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 export default function RootLayout() {
     return (
         <AuthProvider>
-            <Stack screenOptions={{headerShown: false}} />
+            <Stack screenOptions={{ headerShown: false}}>
+                <Stack.Screen name='(screens)' />
+            </Stack>
         </AuthProvider>
     )
 };
