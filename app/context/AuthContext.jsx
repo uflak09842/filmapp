@@ -44,18 +44,16 @@ export const AuthProvider = ({ children }) => {
 
     const login = async ( email, password ) => {
         try {
-            const result = await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/auth`, { email, password })
-
-            console.log('login: ' + result);
+            const result = await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/auth`, { email, password });
 
             setAuthState({
-                token: result.data.token,
+                token: result.data.accessToken,
                 authenticated: true
             });
 
-            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
 
-            await SecureStore.setItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY, result.data.token);
+            await SecureStore.setItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY, result.data.accessToken);
 
             return result;
         } catch (err) {
