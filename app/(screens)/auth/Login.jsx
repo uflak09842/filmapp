@@ -17,7 +17,7 @@ const Login = () => {
     const result = await login(email, password);
 
     if(result && !result.error) {
-      router.push('/');
+      router.replace('/');
     } else {
       setStatus(result.msg);
     }

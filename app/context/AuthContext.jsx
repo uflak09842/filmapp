@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         } catch (err) {
             return {
                 error: true, 
-                msg: err.response.data.msg
+                msg: err.response.data.msg.message || err.response.data.msg || 'Bilinmeyen Hata'
             }
         }
     };
