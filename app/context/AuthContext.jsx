@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async ( email, password ) => {
         try {
-            const result = await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/auth`, { email, password });
+            const result = await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/login`, { email, password });
 
             setAuthState({
                 token: result.data.accessToken,
