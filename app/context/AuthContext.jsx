@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async ( username, email, password, country ) => {
         try {
-            return await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/users`, { username, email, password, country })
+            return await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/createUser`, { username, email, password, country })
         } catch (err) {
             return {
                 error: true, 

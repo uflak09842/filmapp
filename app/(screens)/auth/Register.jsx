@@ -39,7 +39,7 @@ const Register = () => {
     const result = await register(username, email, password, country);
 
     if(result && !result.error) {
-      router.push('/');
+      router.replace('/');
     } else {
       setStatus(result.msg);
     }
