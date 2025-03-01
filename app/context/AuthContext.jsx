@@ -41,11 +41,34 @@ export const AuthProvider = ({ children }) => {
                 }
             } catch (err) {
                 //middleware'dan yani endpointten hata dönmüşse (if şartı yok her halükarda zaten token sıkıntılı olduğundan auth vermicem)
-                setAuthState({
-                    token: null,
-                    authenticated: false,
-                    loading: false
-                });
+                if(err.status === 404) {
+                    try {
+                        const refreshToken = await SecureStore.getItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY);
+
+                        const response = await axios.post(`${process.env.EXPO_PUBLIC_AUTH_SERVER_URL}/token`, {refreshToken});
+
+                        setAuthState({
+                            token: response.data.accessToken,
+                            authenticated: true,
+                            loading: false
+                        });
+
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
+
+                        await SecureStore.setItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY, response.data.accessToken);
+
+                        return;
+                    } catch (err) {
+                        console.error('loadToken fonksiyonunda bir sorun oluştu: ' + err)
+                    }
+                } else {
+                    setAuthState({
+                        token: null,
+                        authenticated: false,
+                        loading: false
+                    });
+                }
+                
             }
         }
 
@@ -78,6 +101,7 @@ export const AuthProvider = ({ children }) => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.accessToken}`;
 
             await SecureStore.setItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY, result.data.accessToken);
+            await SecureStore.setItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY, result.data.refreshToken);
 
             return result;
         } catch (err) {
