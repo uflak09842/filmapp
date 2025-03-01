@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import { Redirect, router } from "expo-router";
 
 const AuthContext = createContext({});
 
@@ -59,7 +60,12 @@ export const AuthProvider = ({ children }) => {
 
                         return;
                     } catch (err) {
-                        console.error('loadToken fonksiyonunda bir sorun oluştu: ' + err)
+                        //token yenilenirken hata olmuşsa
+                        setAuthState({
+                            token: null,
+                            authenticated: false,
+                            loading: false
+                        });
                     }
                 } else {
                     setAuthState({
@@ -113,15 +119,37 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = async () => {
-        await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY);
+        try {
+            const refreshToken = await SecureStore.getItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY);
 
-        axios.defaults.headers.common['Authorization'] = '';
+            const response = await axios.post(`${process.env.EXPO_PUBLIC_AUTH_SERVER_URL}/logout`, { refreshToken });
 
-        setAuthState({
-            token: null,
-            authenticated: false,
-            loading: false
-        })
+            await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY);
+            await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY);
+
+            axios.defaults.headers.common['Authorization'] = '';
+
+            setAuthState({
+                token: null,
+                authenticated: false,
+                loading: false
+            })
+
+            router.replace('/');
+        } catch (err) {
+            console.error(err);
+
+            await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_TOKEN_KEY);
+            await SecureStore.deleteItemAsync(process.env.EXPO_PUBLIC_REFRESH_TOKEN_KEY);
+
+            axios.defaults.headers.common['Authorization'] = '';
+
+            setAuthState({
+                token: null,
+                authenticated: false,
+                loading: false
+            })
+        }
     }
 
     const value = {
