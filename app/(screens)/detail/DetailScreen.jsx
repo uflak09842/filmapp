@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
-import { useLocalSearchParams } from 'expo-router'
+import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
+import axios from 'axios';
 
 const DetailScreen = () => {
-  const mv = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
 
   const [ movie, setMovie ] = useState();
 
   useEffect(() => {
     const getMovie = async () => {
-      const movie = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`);
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, {
+        params: { id }
+      });
 
-      
+      setMovie(response.data); 
     }
+
+    getMovie();
   }, []);
+
+  console.log(movie)
 
   return (
     <View>
