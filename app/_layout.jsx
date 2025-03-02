@@ -6,7 +6,7 @@ export default function RootLayout() {
     return (
         <AuthProvider>
             <Stack screenOptions={{ headerShown: false}}>
-                <Stack.Screen name='(screens)' />
+                <Stack.Screen name='(screens)/(tabs)' />
             </Stack>
         </AuthProvider>
     )

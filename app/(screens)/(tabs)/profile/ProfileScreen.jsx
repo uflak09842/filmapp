@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
-import { useAuth } from '../../context/AuthContext';
-import axiosInstance from '../../components/axiosInstance';
+import { useAuth } from '../../../context/AuthContext';
+import axiosInstance from '../../../components/axiosInstance';
 
 const ProfileScreen = () => {
   const { logout } = useAuth();

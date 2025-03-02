@@ -1,6 +1,6 @@
 import { View, Text, TextInput, Image, SafeAreaView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import styles from '../../components/searchScreen/searchScreen.styles';
+import styles from '../../../components/searchScreen/searchScreen.styles';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import axios from 'axios';
 import { router } from 'expo-router';
@@ -37,8 +37,8 @@ const SearchScreen = () => {
           numColumns={3}
           renderItem={({item}) => {
             const handleSelect = (id) => {
-              console.log('tıklandı: ' + id)
-            }
+              router.push({pathname: '/detail/DetailScreen', params: {id: id} });
+            };
 
             return (
               <TouchableWithoutFeedback onPress={() => {handleSelect(item.id)}}>
@@ -46,8 +46,8 @@ const SearchScreen = () => {
                   <View style={styles.imageView}>
                     <Image 
                       style={styles.image} 
-                      source={{uri: `https://image.tmdb.org/t/p/w342${item.poster_path}`}} 
-                      loadingIndicatorSource={{uri: `https://image.tmdb.org/t/p/w92${item.poster_path}`}}
+                      source={{uri: process.env.EXPO_PUBLIC_MIDDLE_IMAGE_URL + item.poster_path }} 
+                      loadingIndicatorSource={{uri: process.env.EXPO_PUBLIC_LOW_IMAGE_URL + item.poster_path }}
                       resizeMode='cover'
                     />
                   </View>
