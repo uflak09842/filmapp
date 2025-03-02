@@ -12,13 +12,13 @@ export default StyleSheet.create({
 
     container: {
         flex: 1,
-        margin: 5,
-        padding: 5
+        marginHorizontal: 5,
+        paddingHorizontal: 5
     },
 
     titleView: {
         backgroundColor: '#D8C4B6',
-        marginBottom: 10,
+        marginTop: 10,
         borderRadius: 3,
     },
 
@@ -27,7 +27,7 @@ export default StyleSheet.create({
         padding: 5,
         flexDirection: 'row',
         height: 40,
-        borderWidth: 1,
+        borderWidth: 2,
         borderRadius: 3,
     },
 
@@ -37,5 +37,44 @@ export default StyleSheet.create({
         margin: 5,
         padding: 5,
         borderRadius: 3
-    }
+    },
+
+    listView: {
+        margin: 5,
+        padding: 5,
+        flex: 1,
+        alignItems: 'center',
+        borderBlockColor: 'gray',
+        borderWidth: 2,
+        borderRadius: 5
+    },
+
+    imageView: {
+        
+    },
+
+    image: {
+        width: 100,
+        height: 150,
+        borderWidth: 1,
+        borderRadius: 3,
+    },
+
+    mtView: {
+        marginTop: 5,
+        flex: 1,
+        justifyContent: 'center',
+        alignSelf: "stretch",
+        backgroundColor: '#D8C4B6',
+        padding: 5,
+        borderWidth: 1,
+    },
+
+    mTitle: {
+        textAlign: 'center',
+        fontSize: 15,
+        fontWeight: "700",
+        color: 'black',
+        textAlignVertical: "center"
+    },
 });
