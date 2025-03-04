@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
+
+import langCodes from './components/langCodes';
+import useGet from '../../components/hooks/normalServer/useGet';
+import ErrorCard from '../../components/infoCards/ErrorCard';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
 
-  const [ movie, setMovie ] = useState();
+  const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
 
-  useEffect(() => {
-    const getMovie = async () => {
-      const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, {
-        params: { id }
-      });
+  if(loading) return <ActivityIndicator size={'large'} />
+  if(!error) return <ErrorCard desc={error} /> // Error Card tasarlamak için !error yaptım ! kaldır
+  if(!movie) return <Text>Film Bulunamadı</Text>
 
-      setMovie(response.data); 
-    }
+  const language = langCodes[movie.original_language] || movie.original_language;
+  const release = movie.release_date.substring(0,4); 
 
-    getMovie();
-  }, []);
-
-  console.log(movie)
+  console.log(release);
 
   return (
     <View>
