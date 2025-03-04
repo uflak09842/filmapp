@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, ActivityIndicator, ScrollView, Image } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
 
@@ -10,6 +10,8 @@ import styles from './detailScreen.style';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
+
+  const [ bgLoad, setBgLoad ] = useState(true);
 
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
 
@@ -27,8 +29,21 @@ const DetailScreen = () => {
   const tagline = movie.tagline ? <Text style={styles.tagline}>"{movie.tagline}"</Text> : "";
 
   return (
-    <ScrollView>
-      
+    <ScrollView style={styles.root}>
+      <View style={styles.resimPanel}>
+        {bgLoad && (
+          <ActivityIndicator style={styles.loading} size="large" />
+        )}
+        <Image 
+          style={styles.resim} 
+          src={process.env.EXPO_PUBLIC_HIGH_IMAGE_URL + movie.backdrop_path}  
+          resizeMode='contain'
+          onLoadStart={() => setBgLoad(true)}
+          onLoadEnd={() => setBgLoad(false)}
+        />
+      </View>
+
+
     </ScrollView>
   )
 }

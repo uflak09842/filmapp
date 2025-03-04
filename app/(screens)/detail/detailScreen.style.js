@@ -5,19 +5,28 @@ const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
     root: {
         flex: 1,
-        maxHeight: height,
-        maxWidth: width,
-        backgroundColor: '#F5EFE7'
+        backgroundColor: "#F5EFE7",
     },
 
-    container: {
+    resimPanel: {
+        borderBottomWidth: 3,
+        position: 'relative',
+    },
+
+    loading: {
         flex: 1,
-        margin: 5,
-        padding: 5
+        alignSelf: 'center', 
+        justifyContent: 'center',
+        position: 'absolute', 
+        zIndex: 1,
+        top: 0, 
+        left: 0,
+        right: 0,
+        bottom: 0
     },
 
-    titleView: {
-        backgroundColor: 'red'
-        
+    resim: {
+        width: width,
+        aspectRatio: 16 / 9,
     }
 });
