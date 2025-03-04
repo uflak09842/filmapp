@@ -1,30 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, ScrollView } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
 
 import langCodes from './components/langCodes';
 import useGet from '../../components/hooks/normalServer/useGet';
 import ErrorCard from '../../components/infoCards/ErrorCard';
+import styles from './detailScreen.style';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
 
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
 
-  if(loading) return <ActivityIndicator size={'large'} />
-  if(!error) return <ErrorCard desc={error} /> // Error Card tasarlamak için !error yaptım ! kaldır
-  if(!movie) return <Text>Film Bulunamadı</Text>
+  if(loading) return <ActivityIndicator size={'large'} style={{flex: 1, alignSelf: 'center'}} />
+  if(error) return <ErrorCard desc={error} />
+  if(!movie) return <ErrorCard desc={'Film Bulunamadı'} />
 
-  const language = langCodes[movie.original_language] || movie.original_language;
-  const release = movie.release_date.substring(0,4); 
-
-  console.log(release);
+  const language = langCodes[movie.original_language] || movie.original_language || 'Bulunamadı';
+  const release = movie.release_date.substring(0,4) || 'Bulunamadı'; 
+  const genres = movie.genres.filter(x => x !== null).map(x => x.name) || 'Bulunamadı';
+  const productions = movie.production_companies.filter( 
+    x => x !== null && x.name !== '' && x.logo_path !== null 
+  ).map(x => ({name: x.name, logo_path: x.logo_path}));
+  const descStyle = movie.overview.length === 0 ? { display: 'none' } : styles.descView;
+  const tagline = movie.tagline ? <Text style={styles.tagline}>"{movie.tagline}"</Text> : "";
 
   return (
-    <View>
-      <Text>DetailScreen</Text>
-    </View>
+    <ScrollView>
+      
+    </ScrollView>
   )
 }
 

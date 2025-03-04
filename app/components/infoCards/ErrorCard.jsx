@@ -17,9 +17,9 @@ const ErrorCard = ({desc}) => {
                     <Text style={styles.desc}>{desc}</Text>
                 </View>
 
-                <TouchableWithoutFeedback onPress={() => router.replace('/')}>
+                <TouchableWithoutFeedback onPress={() => router.replace('/(tabs)/Home')}>
                     <View style={styles.buttonView}>
-                        <Text style={styles.title}>Ana Sayfa <FontAwesome name='rotate-left' size={20} /> </Text>
+                        <Text style={styles.desc}>Ana Sayfa <FontAwesome name='rotate-left' size={20} /> </Text>
                     </View>
                 </TouchableWithoutFeedback>
                 
