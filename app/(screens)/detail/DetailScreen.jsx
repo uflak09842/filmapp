@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, ScrollView, Image, FlatList } from 'react-native';
+import { View, Text, ActivityIndicator, ScrollView, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ import useGet from '../../components/hooks/normalServer/useGet';
 import ErrorCard from '../../components/infoCards/ErrorCard';
 import styles from './detailScreen.style';
 import CompaniesCard from '../../components/cards/CompaniesCard';
+import { FontAwesome } from '@expo/vector-icons';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
@@ -15,22 +16,38 @@ const DetailScreen = () => {
   const [ bgLoad, setBgLoad ] = useState(true);
   const [ posterLoad, setPosterLoad ] = useState(true);
 
+  const [like, setLike ] = useState(false);
+  const [watched, setWatched ] = useState(false);
+
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
 
   if(loading) return <ActivityIndicator size={'large'} style={{flex: 1, alignSelf: 'center'}} />
   if(error) return <ErrorCard desc={error} />
   if(!movie) return <ErrorCard desc={'Film Bulunamadı'} />
 
-  const language = langCodes[movie.original_language] || movie.original_language || 'Bulunamadı';
-  const release = movie.release_date.substring(0,4) || 'Bulunamadı'; 
-  const genres = movie.genres.filter(x => x !== null).map(x => x.name).join(', ') || 'Bulunamadı';
-  const productions = movie.production_companies.filter( 
-    x => x !== null && x.name !== '' && x.logo_path !== null 
-  ).map(x => ({name: x.name, logo_path: x.logo_path}));
-  const descStyle = movie.overview.length === 0 ? { display: 'none' } : styles.descView;
+  const { release, genres, productions } = movie;
+
+  const language = langCodes[movie.language] || movie.language || 'Bulunamadı';
+  const descStyle = movie.description === 0 ? { display: 'none' } : styles.descView;
   const tagline = movie.tagline ? <Text style={styles.tagline}>{movie.tagline}</Text> : "";
 
-  console.log(movie);
+  const handleLike = () => {
+    if(like) {
+      setLike(false);
+    } else {
+      setLike(true);
+    }
+  }
+
+  const handleWatched = () => {
+    if(watched) {
+      setWatched(false);
+    } else {
+      setWatched(true);
+    }
+  }
+
+  console.log(like);
 
   return (
     <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
@@ -39,7 +56,7 @@ const DetailScreen = () => {
         {bgLoad && ( <ActivityIndicator style={styles.loading} size="large" /> )}
         <Image 
           style={styles.backDrop} 
-          src={process.env.EXPO_PUBLIC_HIGH_IMAGE_URL + movie.backdrop_path}  
+          src={process.env.EXPO_PUBLIC_HIGH_IMAGE_URL + movie.backdrop}  
           resizeMode='contain'
           onLoadStart={() => setBgLoad(true)}
           onLoadEnd={() => setBgLoad(false)}
@@ -51,7 +68,7 @@ const DetailScreen = () => {
           { posterLoad && ( <ActivityIndicator style={styles.loading} size="large" /> ) }
           <Image 
             style={styles.poster}
-            src={ process.env.EXPO_PUBLIC_HIGH_IMAGE_URL + movie.poster_path }
+            src={ process.env.EXPO_PUBLIC_HIGH_IMAGE_URL + movie.poster }
             resizeMode='cover'
             onLoadStart={() => setPosterLoad(true)}
             onLoadEnd={() => setPosterLoad(false)}
@@ -82,11 +99,33 @@ const DetailScreen = () => {
         </View>
       </View>
 
+      <View style={styles.interactView}>
+        <TouchableOpacity onPress={() => {handleLike()}}>
+          <View style={styles.reactBox}>
+            {
+              like ? 
+              <FontAwesome name='heart' size={50} /> : 
+              <FontAwesome name='heart-o' size={50} />
+            }
+          </View> 
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {handleWatched()}}>
+          <View style={styles.reactBox}>
+            {
+              watched ? <FontAwesome name='eye' size={50} /> :
+              <FontAwesome name='eye-slash' size={50} />
+            }
+          </View>
+        </TouchableOpacity>
+        
+      </View>
+
       {
-        !movie.overview || movie.overview === null ?
+        !movie.description || movie.description === null ?
         null :
         <View style={styles.descView}>
-          <Text style={styles.desc}>{ movie.overview }</Text>
+          <Text style={styles.desc}>{ movie.description }</Text>
         </View>
       }
 

@@ -97,6 +97,15 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
 
+    interactView: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    },
+
+    reactBox: {
+        padding: 5
+    },
+
     descView: {
         margin: 10,
         padding: 5,
@@ -108,6 +117,6 @@ export default StyleSheet.create({
     desc: {
         fontSize: 18,
         textAlign: 'justify',
-        textAlignVertical: "bottom",
+        textAlignVertical: "center",
     }
 });
