@@ -8,7 +8,7 @@ export default StyleSheet.create({
         backgroundColor: "#F5EFE7",
     },
 
-    resimPanel: {
+    bdView: {
         borderBottomWidth: 3,
         position: 'relative',
     },
@@ -25,8 +25,89 @@ export default StyleSheet.create({
         bottom: 0
     },
 
-    resim: {
+    backDrop: {
         width: width,
         aspectRatio: 16 / 9,
+    },
+
+    infoView: {
+        flexDirection: 'row',
+        borderRightWidth: 1,
+        borderBottomWidth: 3,
+    },
+
+    posterView: {
+        borderRightWidth: 2,
+        overflow: "hidden",
+    },
+
+    poster: {
+        width: width / 4,
+        aspectRatio: 9 / 16,
+    },
+
+    etcView: {
+        flex: 1,
+        flexDirection: "column",
+        backgroundColor: '#D8C4B6',
+        alignItems: 'center',
+    },
+
+    titleView: {
+        alignSelf: 'center',
+        padding: 5,
+        marginTop: 10,
+    },
+
+    title: {
+        fontSize: 20,
+        textAlign: "center",
+        borderColor: '#4F709C',
+        borderBottomWidth: 3,
+        borderRadius: 10,
+    },
+
+    innerDescView: {
+        marginHorizontal: 5,
+    },
+
+    taglineView: {
+        marginTop: 5,
+        alignSelf: 'center',
+        borderColor: '#4F709C',
+        borderLeftWidth: 3,
+        borderRightWidth: 3,
+        borderRadius: 5
+    },
+
+    tagline: {
+        fontSize: 16,
+        textAlign: 'center'
+    },
+
+    lrView: {
+        marginVertical: 10,
+        flexDirection: 'row',
+        alignSelf: 'center'
+    },
+
+    text: {
+        fontSize: 17,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+
+    descView: {
+        margin: 10,
+        padding: 5,
+        backgroundColor: '#D8C4B6',
+        borderWidth: 2,
+        borderRadius: 3,
+    },
+
+    desc: {
+        fontSize: 18,
+        textAlign: 'justify',
+        textAlignVertical: "bottom",
     }
 });
