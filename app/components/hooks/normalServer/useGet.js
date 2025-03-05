@@ -22,7 +22,7 @@ const useGet = (url, params) => {
 
     useEffect(() => {
         getData();
-    }, [url]);
+    }, []);
 
     return {
         error,

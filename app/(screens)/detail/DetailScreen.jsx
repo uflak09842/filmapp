@@ -9,6 +9,7 @@ import ErrorCard from '../../components/infoCards/ErrorCard';
 import styles from './detailScreen.style';
 import CompaniesCard from '../../components/cards/CompaniesCard';
 import { FontAwesome } from '@expo/vector-icons';
+import axiosInstance from '../../components/axiosInstance';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
@@ -21,21 +22,45 @@ const DetailScreen = () => {
 
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
 
+  useEffect(() => {
+    const getStates = async () => {
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getDetailStates`, {
+        params: { id }
+      });
+
+      console.log(response.data)
+
+      setLike(response.data.liked);
+    }
+
+    getStates();
+  }, [])
+
   if(loading) return <ActivityIndicator size={'large'} style={{flex: 1, alignSelf: 'center'}} />
-  if(error) return <ErrorCard desc={error} />
+  if(error) return <ErrorCard desc={error || 'Bilinmeyen Hata'} />
   if(!movie) return <ErrorCard desc={'Film Bulunamadı'} />
 
-  const { release, genres, productions } = movie;
+  const { mvId, release, genres, productions } = movie;
 
   const language = langCodes[movie.language] || movie.language || 'Bulunamadı';
   const descStyle = movie.description === 0 ? { display: 'none' } : styles.descView;
   const tagline = movie.tagline ? <Text style={styles.tagline}>{movie.tagline}</Text> : "";
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if(like) {
       setLike(false);
+      try {
+        const response = await axiosInstance.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/deleteLike`, { mvId });
+      } catch (err) {
+        console.error(err);
+      }
     } else {
       setLike(true);
+      try {
+        const response = await axiosInstance.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/addLike`, { mvId })
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
@@ -47,7 +72,7 @@ const DetailScreen = () => {
     }
   }
 
-  console.log(like);
+  
 
   return (
     <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>

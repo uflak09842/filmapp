@@ -86,6 +86,7 @@ export const AuthProvider = ({ children }) => {
         try {
             return await axios.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/createUser`, { username, email, password, country })
         } catch (err) {
+            console.error(err);
             return {
                 error: true, 
                 msg: err.response.data.msg.message || err.response.data.msg || 'Bilinmeyen Hata'
