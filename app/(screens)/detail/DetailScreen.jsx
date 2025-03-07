@@ -29,8 +29,6 @@ const DetailScreen = () => {
         params: { id }
       });
 
-      console.log(response.data)
-
       setLike(response.data.liked);
       setWatch(response.data.watched);
     }

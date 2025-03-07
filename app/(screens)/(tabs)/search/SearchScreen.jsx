@@ -27,6 +27,7 @@ const SearchScreen = () => {
                 <TextInput 
                     style={styles.input}
                     cursorColor={'#4F709C'}
+                    placeholder='Ara..'
                 />
             </View>
         </View>
