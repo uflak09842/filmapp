@@ -3,8 +3,9 @@ import styles from './cardStyles.js';
 import { router } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
 
-const ErrorCard = ({desc}) => {
+const ErrorCard = ({desc, navigate}) => {
     if(!desc || desc === null) desc = 'Bilinmeyen Bir Hata Oluştu';
+    navigate ? navigate : '/(tabs)/Home';
 
     return(
         <View style={styles.root}>
@@ -17,7 +18,7 @@ const ErrorCard = ({desc}) => {
                     <Text style={styles.desc}>{desc}</Text>
                 </View>
 
-                <TouchableWithoutFeedback onPress={() => router.replace('/(tabs)/Home')}>
+                <TouchableWithoutFeedback onPress={() => router.replace(navigate)}>
                     <View style={styles.buttonView}>
                         <Text style={styles.desc}>Ana Sayfa <FontAwesome name='rotate-left' size={20} /> </Text>
                     </View>
