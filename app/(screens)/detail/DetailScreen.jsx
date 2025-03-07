@@ -143,14 +143,7 @@ const DetailScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {redirectAra()}}>
-          <View style={styles.reactBox}>
-            {
-              watched ? <FontAwesome name='eye' size={50} /> :
-              <FontAwesome name='eye-slash' size={50} />
-            }
-          </View>
-        </TouchableOpacity>
+        
         
       </View>
 
