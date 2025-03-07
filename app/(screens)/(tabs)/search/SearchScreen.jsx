@@ -4,6 +4,7 @@ import styles from '../../../components/searchScreen/searchScreen.styles';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import axios from 'axios';
 import { router } from 'expo-router';
+import MoviesCard from '../../../components/cards/MoviesCard/MoviesCard';
 
 const SearchScreen = () => {
   const [ movies, setMovies ] = useState();
@@ -23,7 +24,7 @@ const SearchScreen = () => {
       <View style={styles.container}>
         <View style={styles.titleView}>
             <View style={styles.titleContainer}>
-                <FontAwesome size={25}  name='search' />
+                <FontAwesome size={20}  name='search' color={'#4F709C'} />
                 <TextInput 
                     style={styles.input}
                     cursorColor={'#4F709C'}
@@ -32,42 +33,8 @@ const SearchScreen = () => {
             </View>
         </View>
 
-        <FlatList 
-          showsVerticalScrollIndicator={false}
-          data={movies}
-          numColumns={3}
-          renderItem={({item}) => {
-            const handleSelect = (id) => {
-              router.push({pathname: '/detail/DetailScreen', params: {id: id} });
-            };
-
-            return (
-              <TouchableWithoutFeedback onPress={() => {handleSelect(item.id)}}>
-                <View style={styles.listView}>
-                  <View style={styles.imageView}>
-                    <Image 
-                      style={styles.image} 
-                      source={{uri: process.env.EXPO_PUBLIC_MIDDLE_IMAGE_URL + item.poster_path }} 
-                      loadingIndicatorSource={{uri: process.env.EXPO_PUBLIC_LOW_IMAGE_URL + item.poster_path }}
-                      resizeMode='cover'
-                    />
-                  </View>
-
-                  <View style={styles.mtView}>
-                    <Text
-                      style={styles.mTitle}
-                      numberOfLines={2}
-
-                    > 
-                      {item.title} 
-                    </Text>
-                  </View>
-                  
-                </View>
-              </TouchableWithoutFeedback>
-            )
-          }}
-        />
+        <MoviesCard props={movies} />
+        
       </View>
     </SafeAreaView>
   )

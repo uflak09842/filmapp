@@ -17,7 +17,7 @@ const RecommendationsCard = ({ id }) => {
 
   if(error) return
 
-  if(data.length === 0) null;
+  if(data.length === 0) return null;
 
   const handleSelect = (id) => {
     router.push({pathname: '/detail/DetailScreen', params: {id: id} })

@@ -3,49 +3,14 @@ import { StyleSheet, Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 export default StyleSheet.create({
-    root: {
-        flex: 1,
-        maxHeight: height,
-        maxWidth: width,
-        backgroundColor: '#F5EFE7'
-    },
-
-    container: {
-        flex: 1,
-        marginHorizontal: 5,
-        paddingHorizontal: 5,
-    },
-
-    titleView: {
-        backgroundColor: '#D8C4B6',
-        marginTop: 10,
-        borderRadius: 3,
-    },
-
-    titleContainer: {
-        alignItems: 'center',
-        padding: 5,
-        flexDirection: 'row',
-        height: 40,
-        borderColor: '#4F709C',
-        borderWidth: 3,
-        borderRadius: 3,
-    },
-
-    input: {
-        height: 40,
-        width: width / 1.2,
-        margin: 5,
-        padding: 5,
-        borderRadius: 3,
-    },
 
     listView: {
         margin: 5,
         padding: 5,
         flex: 1,
         alignItems: 'center',
-        borderWidth: 2,
+        borderColor: '#4F709C',
+        borderWidth: 3,
         borderRadius: 5
     },
 
