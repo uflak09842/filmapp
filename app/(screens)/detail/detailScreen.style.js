@@ -9,6 +9,7 @@ export default StyleSheet.create({
     },
 
     bdView: {
+        borderColor: '#4F709C',
         borderBottomWidth: 3,
         position: 'relative',
     },
@@ -32,11 +33,15 @@ export default StyleSheet.create({
 
     infoView: {
         flexDirection: 'row',
+        borderColor: '#4F709C',
         borderRightWidth: 1,
         borderBottomWidth: 3,
+        backgroundColor: '#D8C4B6',
+        alignItems: 'center'
     },
 
     posterView: {
+        borderColor: '#4F709C',
         borderRightWidth: 2,
         overflow: "hidden",
     },
@@ -49,14 +54,12 @@ export default StyleSheet.create({
     etcView: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: '#D8C4B6',
         alignItems: 'center',
     },
 
     titleView: {
         alignSelf: 'center',
         padding: 5,
-        marginTop: 10,
     },
 
     title: {
@@ -103,6 +106,7 @@ export default StyleSheet.create({
     },
 
     reactBox: {
+        marginTop: 10,
         padding: 5
     },
 
@@ -110,7 +114,8 @@ export default StyleSheet.create({
         margin: 10,
         padding: 5,
         backgroundColor: '#D8C4B6',
-        borderWidth: 2,
+        borderColor: '#4F709C',
+        borderWidth: 3,
         borderRadius: 3,
     },
 
@@ -118,5 +123,10 @@ export default StyleSheet.create({
         fontSize: 18,
         textAlign: 'justify',
         textAlignVertical: "center",
-    }
+    },
+
+    recommendCard: {
+        marginVertical: 10,
+        marginBottom: 50
+    },
 });

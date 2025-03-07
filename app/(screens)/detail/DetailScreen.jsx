@@ -10,6 +10,7 @@ import styles from './detailScreen.style';
 import CompaniesCard from '../../components/cards/CompaniesCard';
 import { FontAwesome } from '@expo/vector-icons';
 import axiosInstance from '../../components/axiosInstance';
+import RecommendationsCard from '../../components/cards/RecommendationsCard';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
@@ -71,8 +72,6 @@ const DetailScreen = () => {
       setWatched(true);
     }
   }
-
-  
 
   return (
     <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
@@ -143,6 +142,15 @@ const DetailScreen = () => {
             }
           </View>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {redirectAra()}}>
+          <View style={styles.reactBox}>
+            {
+              watched ? <FontAwesome name='eye' size={50} /> :
+              <FontAwesome name='eye-slash' size={50} />
+            }
+          </View>
+        </TouchableOpacity>
         
       </View>
 
@@ -171,7 +179,10 @@ const DetailScreen = () => {
       null
       }
 
-
+      <View style={styles.recommendCard}>
+        <RecommendationsCard id={id} />
+      </View>
+      
     </ScrollView>
   )
 }
