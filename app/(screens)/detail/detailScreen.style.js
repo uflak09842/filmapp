@@ -14,6 +14,14 @@ export default StyleSheet.create({
         position: 'relative',
     },
 
+    geriDon: {
+        flex: 1,
+        position: 'absolute',
+        zIndex: 1,
+        alignSelf: "flex-end",
+        padding: 5
+    },
+
     loading: {
         flex: 1,
         alignSelf: 'center', 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, ScrollView, Image, FlatList, TouchableOpacity } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, router } from 'expo-router';
 import axios from 'axios';
 
 import langCodes from './components/langCodes';
@@ -19,7 +19,7 @@ const DetailScreen = () => {
   const [ posterLoad, setPosterLoad ] = useState(true);
 
   const [like, setLike ] = useState(false);
-  const [watched, setWatched ] = useState(false);
+  const [watched, setWatch ] = useState(false);
 
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
 
@@ -32,6 +32,7 @@ const DetailScreen = () => {
       console.log(response.data)
 
       setLike(response.data.liked);
+      setWatch(response.data.watched);
     }
 
     getStates();
@@ -65,11 +66,22 @@ const DetailScreen = () => {
     }
   }
 
-  const handleWatched = () => {
+  const handleWatch = async () => {
     if(watched) {
-      setWatched(false);
+      setWatch(false);
+      try {
+        const response = await axiosInstance.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/deleteWatch`, { mvId })
+      } catch (err) {
+        console.error(err);
+      }
     } else {
-      setWatched(true);
+      setWatch(true);
+
+      try {
+        const response = await axiosInstance.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/addWatch`, { mvId })
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
@@ -77,6 +89,10 @@ const DetailScreen = () => {
     <ScrollView style={styles.root} showsVerticalScrollIndicator={false}>
 
       <View style={styles.bdView}>
+        <TouchableOpacity style={styles.geriDon} onPress={() => router.push('/search/SearchScreen')}>
+          <FontAwesome name='arrow-circle-left' color={'white'} size={30} />
+        </TouchableOpacity>
+        
         {bgLoad && ( <ActivityIndicator style={styles.loading} size="large" /> )}
         <Image 
           style={styles.backDrop} 
@@ -134,7 +150,7 @@ const DetailScreen = () => {
           </View> 
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {handleWatched()}}>
+        <TouchableOpacity onPress={() => {handleWatch()}}>
           <View style={styles.reactBox}>
             {
               watched ? <FontAwesome name='eye' size={50} /> :
@@ -142,8 +158,6 @@ const DetailScreen = () => {
             }
           </View>
         </TouchableOpacity>
-
-        
         
       </View>
 
