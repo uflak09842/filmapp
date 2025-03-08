@@ -55,8 +55,8 @@ export default StyleSheet.create({
     },
 
     poster: {
-        width: width / 4,
-        aspectRatio: 9 / 16,
+        height: 150,
+        width: 100
     },
 
     etcView: {
