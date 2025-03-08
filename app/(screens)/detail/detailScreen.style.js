@@ -55,8 +55,8 @@ export default StyleSheet.create({
     },
 
     poster: {
-        height: 150,
-        width: 100
+        height: Dimensions.get('window').height / 5,
+        width: Dimensions.get('window').height / 7
     },
 
     etcView: {
