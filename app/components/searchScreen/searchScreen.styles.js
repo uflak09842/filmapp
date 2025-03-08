@@ -10,6 +10,36 @@ export default StyleSheet.create({
         backgroundColor: '#F5EFE7'
     },
 
+    modalView: {
+        flex: 1,
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
+
+    modalInnerView: {
+        padding: 20,
+        borderRadius: 20,
+        backgroundColor: 'white',
+    },
+
+    modalTitle: {
+        textAlign: 'center',
+        fontSize: 20,
+        marginBottom: 10,
+    },
+
+    modalText: {
+        fontSize: 16,
+        textAlign: 'center',
+    },
+
+    modalButton: {
+        marginTop: 20,
+        padding: 7,
+        backgroundColor: '#4F709C',
+        borderRadius: 10
+    },
+
     container: {
         flex: 1,
         marginHorizontal: 5,

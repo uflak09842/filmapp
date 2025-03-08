@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const ErrorCard = ({desc, navigate}) => {
     if(!desc || desc === null) desc = 'Bilinmeyen Bir Hata Oluştu';
-    navigate ? navigate : '/(tabs)/Home';
+    if (!navigate) navigate = '/(tabs)/Home';
 
     return(
         <View style={styles.root}>
@@ -20,7 +20,7 @@ const ErrorCard = ({desc, navigate}) => {
 
                 <TouchableWithoutFeedback onPress={() => router.replace(navigate)}>
                     <View style={styles.buttonView}>
-                        <Text style={styles.desc}>Ana Sayfa <FontAwesome name='rotate-left' size={20} /> </Text>
+                        <Text style={styles.desc}>Geri Dön <FontAwesome name='rotate-left' size={20} /> </Text>
                     </View>
                 </TouchableWithoutFeedback>
                 

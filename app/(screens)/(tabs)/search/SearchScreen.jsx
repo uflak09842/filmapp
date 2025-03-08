@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Image, SafeAreaView, FlatList, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Image, SafeAreaView, FlatList, TouchableWithoutFeedback, ActivityIndicator, Modal, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import styles from '../../../components/searchScreen/searchScreen.styles';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -13,6 +13,7 @@ const SearchScreen = () => {
 
   const [ search, setSearch ] = useState("");
   const [ submit, setSubmit ] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
       const getMovies = async () => {
@@ -35,8 +36,13 @@ const SearchScreen = () => {
       getMovies();
   }, [submit])
 
+  useEffect(() => {
+    if(movies && movies.length === 0) {
+      setModalVisible(true);
+    }
+  }, [movies])
+
   if(!movies) return <ActivityIndicator size={'large'} style={{flex: 1, alignSelf: 'center', backgroundColor: '#F5EFE7', width: '100%'}} />
-  if(!movies.length > 0) return <ErrorCard desc={"Aradığınız Film Bulunamadı."} navigate={'/search/SearchScreen'} />
 
   const handleSearch = () => {
     setSubmit(true);
@@ -45,6 +51,30 @@ const SearchScreen = () => {
   return (
     <SafeAreaView style={styles.root}>
       <View style={styles.container}>
+      <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.modalView}>
+            <View style={styles.modalInnerView}>
+              <Text style={styles.modalTitle}>Film Bulunamadı.</Text>
+              <Text style={styles.modalText}>Doğru Yazdığınızdan Emin Misiniz ?</Text>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                  setSubmit(false);
+                  setSearch("");
+                }}>
+                <Text style={[styles.modalText, {color: 'white'}]}>Kapat</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
         <View style={styles.titleView}>
             <View style={styles.titleContainer}>
                 <FontAwesome size={20}  name='search' color={'#4F709C'} />
