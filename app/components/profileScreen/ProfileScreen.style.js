@@ -7,12 +7,25 @@ export default StyleSheet.create({
     },
 
     settings: {
+        flex: 1,
+        zIndex: 1,
         margin: 5,
         padding: 5,
         alignSelf: "flex-end",
+        position: 'absolute',
     },
 
-    test: {
-        position: "absolute",
+    backdropView: {
+        borderBottomWidth: 3,
+        borderColor: '#4F709C',
+    },
+    
+    backdrop: {
+        width: Dimensions.get('window').width,
+        aspectRatio: 4 / 2,
+    },
+
+    likedMovies: {
+        marginVertical: 10
     }
 })
