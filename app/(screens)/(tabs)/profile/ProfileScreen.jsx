@@ -83,7 +83,7 @@ const ProfileScreen = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <TouchableWithoutFeedback onPress={() => router.push('/components/profileScreen/SettingsScreen')} >
+        <TouchableWithoutFeedback onPress={() => router.push('components/profileScreen/settingsScreen/SettingsScreen')} >
         <View style={styles.settings}>
           <FontAwesome name='gear' size={30} color={'#4F709C'} />
         </View>
