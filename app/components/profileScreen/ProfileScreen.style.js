@@ -15,6 +15,12 @@ export default StyleSheet.create({
         position: 'absolute',
     },
 
+    settingsIco: {
+        textShadowColor: 'black',
+        textShadowOffset: { height: 1, width: 1},
+        textShadowRadius: 3
+    },
+
     backdropView: {
         borderBottomWidth: 3,
         borderColor: '#4F709C',

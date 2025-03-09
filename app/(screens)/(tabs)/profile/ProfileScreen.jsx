@@ -62,7 +62,7 @@ const ProfileScreen = () => {
   }, []);
 
 
-  if(!likedMvData || !watchedMvData || !user) return <ActivityIndicator size={50} />
+  if(!likedMvData || !watchedMvData || !user) return <ActivityIndicator size={'large'} style={{flex: 1, alignSelf: 'center'}} />
 
   const likedMovies = likedMvData.map((item) => ({
     id: item.mvId,
@@ -85,7 +85,7 @@ const ProfileScreen = () => {
       >
         <TouchableWithoutFeedback onPress={() => router.push('components/profileScreen/settingsScreen/SettingsScreen')} >
         <View style={styles.settings}>
-          <FontAwesome name='gear' size={30} color={'#4F709C'} />
+          <FontAwesome name='gear' size={30} color={'#4F709C'} style={styles.settingsIco} />
         </View>
         </TouchableWithoutFeedback>
 
