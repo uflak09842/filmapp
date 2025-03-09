@@ -3,6 +3,9 @@ import { StyleSheet, Dimensions } from "react-native";
 export default StyleSheet.create({
     container: {
         backgroundColor: '#D8C4B6',
+        borderColor: '#4F709C',
+        borderBottomWidth: 3,
+        borderTopWidth: 3
     },
 
     titleView: {

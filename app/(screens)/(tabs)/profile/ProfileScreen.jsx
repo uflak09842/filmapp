@@ -6,19 +6,22 @@ import styles from '../../../components/profileScreen/ProfileScreen.style.js';
 import { FontAwesome } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import axios from 'axios';
-import LikedMovies from '../../../components/profileScreen/cards/LikedMovies';
+import HorizontalMovieCard from '../../../components/profileScreen/cards/HorizontalMovieCard';
 
 const ProfileScreen = () => {
   const { logout } = useAuth();
 
+  const [ user, setUser ] = useState();
   const [ backdrop, setBackdrop ] = useState();
   const [likedMvData, setLikedMvData ] = useState();
+  const [ watchedMvData, setWatchedMvData ] = useState();
   const [refreshing, setRefreshing] = useState(false);
   
   useEffect(() => {
     const getUser = async () => {
       const response = await axiosInstance.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/user`);
       const user = response.data.rest;
+      setUser(user);
     } 
 
     getUser();
@@ -42,6 +45,15 @@ const ProfileScreen = () => {
     getLiked();
   }, [refreshing]);
 
+  useEffect(() => {
+    const getWatched = async () => {
+      const response = await axiosInstance.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/userWatched`);
+      setWatchedMvData(response.data);
+    };
+  
+    getWatched();
+  }, [refreshing]);
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
@@ -50,9 +62,15 @@ const ProfileScreen = () => {
   }, []);
 
 
-  if(!likedMvData) return <ActivityIndicator size={50} />
+  if(!likedMvData || !watchedMvData || !user) return <ActivityIndicator size={50} />
 
   const likedMovies = likedMvData.map((item) => ({
+    id: item.mvId,
+    poster: item.poster,
+    title: item.title
+  }));
+
+  const watchedMovies = watchedMvData.map((item) => ({
     id: item.mvId,
     poster: item.poster,
     title: item.title
@@ -78,8 +96,16 @@ const ProfileScreen = () => {
           />
         </View>
 
+        <View>
+          <Text>Username: {user.username} pp felan da ekle user için</Text>
+        </View>
+
         <View style={styles.likedMovies}>
-          <LikedMovies likedMovies={likedMovies} />
+          <HorizontalMovieCard movies={likedMovies} title={'Beğenilen Filmler'} />
+        </View>
+
+        <View style={styles.likedMovies}>
+          <HorizontalMovieCard movies={watchedMovies} title={'İzlenen Filmler'} />
         </View>
       </ScrollView>
       

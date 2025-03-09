@@ -1,23 +1,23 @@
 import { View, Text, ActivityIndicator, FlatList, TouchableWithoutFeedback, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import styles from './LikedMovies.style.js';
+import styles from './HorizontalMovieCard.style.js';
 import axios from 'axios';
 import axiosInstance from '../../axiosInstance.js';
 import { router } from 'expo-router';
 
-export default LikedMovies = ({likedMovies}) => {
+export default HorizontalMovieCard = ({movies, title}) => {
 
-  if(!likedMovies) return <ActivityIndicator size={50} />
+  if(!movies) return <ActivityIndicator size={50} />
 
   return (
     <View style={styles.container}>
       <View style={styles.titleView}>
-        <Text style={styles.title}>Beğenilen Filmler</Text>
+        <Text style={styles.title}>{title || 'Filmler'}</Text>
       </View>
 
       <View>
         <FlatList 
-          data={likedMovies}
+          data={movies}
           horizontal={true}
           renderItem={({item}) => {
             const handleSelect = (id) => {
