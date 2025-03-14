@@ -14,7 +14,7 @@ export default function Index() {
             if(authState?.authenticated) {
                 try {
                     setPrefLoading(true);
-                    const response = await axiosInstance.get('/preferences');
+                    const response = await axiosInstance.get( process.env.EXPO_PUBLIC_SERVER_URL + '/preferences');
                     setPreferences(response.data);
                 } catch (err) {
                     setPreferences(false);
