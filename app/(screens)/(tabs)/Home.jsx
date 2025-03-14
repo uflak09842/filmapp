@@ -6,6 +6,7 @@ import axiosInstance from '../../components/axiosInstance';
 import styles from '../../components/homeScreen/homeScreen.styles';
 
 const Home = () => {
+
   return (
     <View style={styles.root}>
       <View style={styles.container}>
