@@ -26,7 +26,7 @@ const SearchScreen = () => {
             setMovies(response.data);
           } else {
             const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getPopular`); 
-            setMovies(response.data);
+            setMovies(response.data.results);
           }
         } catch (err) {
           console.error(err);

@@ -8,6 +8,19 @@ import { router, Redirect } from 'expo-router';
 
 const Home = () => {
 
+  useEffect(() => {
+    const getMovies = async () => {
+      try {
+        const response = await axiosInstance.get( process.env.EXPO_PUBLIC_SERVER_URL + '/recommendations' );
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getMovies();
+  });
+
   return (
     <>
       <View style={styles.root}>

@@ -33,7 +33,10 @@ export default function PreferencesScreen() {
     setSelectedGenres(prev => {
       if (prev.includes(genreId)) {
         return prev.filter(id => id !== genreId);
-      } else {
+      } else if (prev.length >= 4) {
+        return prev;
+      }
+       else {
         return [...prev, genreId];
       }
     });
@@ -74,7 +77,7 @@ export default function PreferencesScreen() {
 
       <View style={styles.container}>
         <View style={styles.titleView}>
-          <Text style={styles.title}>Sevdiğiniz Türleri Seçin</Text>
+          <Text style={styles.title}>En Çok Sevdiğiniz 4 Türü Seçin</Text>
         </View>
 
         <View style={styles.turView}>
