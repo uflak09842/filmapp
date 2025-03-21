@@ -7,17 +7,7 @@ export default StyleSheet.create({
         flex: 1,
         maxHeight: height,
         maxWidth: width,
-        backgroundColor: '#F5EFE7'
-    },
-
-    container: {
-        flex: 1,
-        margin: 5,
+        backgroundColor: '#F5EFE7',
         padding: 5
     },
-
-    titleView: {
-        backgroundColor: 'red'
-        
-    }
 });
