@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Image, SafeAreaView, FlatList, TouchableWithoutFeedback, ActivityIndicator, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, SafeAreaView, FlatList, TouchableWithoutFeedback, ActivityIndicator, Modal, TouchableOpacity, Button } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import styles from '../../../components/searchScreen/searchScreen.styles';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -25,7 +25,7 @@ const SearchScreen = () => {
             
             setMovies(response.data);
           } else {
-            const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getPopular`); 
+            const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getPopular`);
             setMovies(response.data.results);
           }
         } catch (err) {
@@ -91,6 +91,15 @@ const SearchScreen = () => {
                     onSubmitEditing={() => handleSearch()}
                     value={search}
                 />
+                <TouchableOpacity onPress={() => {
+                  setSubmit(false);
+                  setSearch("");
+                }}>
+                  <View style={styles.button}> 
+                    <Text style={styles.buttonText}>Temizle</Text>
+                  </View>
+
+                </TouchableOpacity>
             </View>
         </View>
 

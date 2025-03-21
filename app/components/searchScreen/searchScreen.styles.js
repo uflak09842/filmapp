@@ -56,7 +56,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         padding: 5,
         flexDirection: 'row',
-        height: 40,
+        height: 45,
         borderColor: '#4F709C',
         borderWidth: 3,
         borderRadius: 3,
@@ -64,10 +64,24 @@ export default StyleSheet.create({
 
     input: {
         height: 40,
-        width: width / 1.2,
+        width: width / 1.5, // sıkıntı bura he
         margin: 5,
         padding: 5,
         borderRadius: 3,
+    },
+
+    button: {
+        backgroundColor: '#4F709C',
+        flex: 1,
+        height: 30,
+        justifyContent: "center",
+        borderRadius: 10,
+        padding: 5
+    },
+
+    buttonText: {
+        color: '#F5EFE7',
+        fontSize: 15
     },
 
     listView: {
