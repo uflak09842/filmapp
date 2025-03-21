@@ -30,7 +30,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     const getMovie = async () => {
       const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getPopular`);
-      setBackdrop(response.data[0].backdrop);
+      setBackdrop(response.data.results[0].backdrop);
     }
 
     getMovie();
