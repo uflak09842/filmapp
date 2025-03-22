@@ -17,12 +17,14 @@ const Home = () => {
         const response = await axiosInstance.get( process.env.EXPO_PUBLIC_SERVER_URL + '/recommendations' );
         setMovies(response.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
 
     getMovies();
   }, []);
+
+  if(!movies) return <ActivityIndicator size={'large'} style={{flex: 1, alignSelf: 'center', backgroundColor: '#F5EFE7', width: '100%'}} />
 
   return (
       <View style={styles.root}>

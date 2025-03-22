@@ -24,7 +24,7 @@ const MoviesCard = ({ props }) => {
                 <Image 
                     style={styles.image} 
                     source={{uri: process.env.EXPO_PUBLIC_MIDDLE_IMAGE_URL + item.poster }} 
-                    loadingIndicatorSource={{uri: process.env.EXPO_PUBLIC_LOW_IMAGE_URL + item.poster }}
+                    defaultSource={require('../../../../assets/images/gray.png')}
                     resizeMode='cover'
                 />
                 </View>

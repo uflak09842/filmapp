@@ -1,8 +1,10 @@
-import { View, Text, SafeAreaView, Switch } from 'react-native';
+import { View, Text, SafeAreaView, Switch, Button } from 'react-native';
 import React, { useState } from 'react';
 import styles from './SettingsScreen.style.js';
+import { useAuth } from '../../../context/AuthContext.jsx';
 
 const SettingsScreen = () => {
+  const { logout } = useAuth();
   const [isEnabled, setIsEnabled] = useState(false);
 
   const toggleSwitch = () => {
@@ -22,6 +24,8 @@ const SettingsScreen = () => {
         onValueChange={toggleSwitch}
         value={isEnabled}
       />
+
+      <Button title='Çıkış Yap' onPress={logout} />
     </SafeAreaView>
   )
 }
