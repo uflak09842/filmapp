@@ -62,7 +62,7 @@ const ProfileScreen = () => {
   }, []);
 
 
-  if(!likedMvData || !watchedMvData || !user) return <ActivityIndicator size={'large'} style={{flex: 1, alignSelf: 'center'}} />
+  if(!likedMvData || !watchedMvData || !user || !backdrop) return <ActivityIndicator size={'large'} style={{flex: 1, alignSelf: 'center'}} />
 
   const likedMovies = likedMvData.map((item) => ({
     id: item.mvId,
@@ -91,13 +91,9 @@ const ProfileScreen = () => {
 
         <View style={styles.backdropView}>
           <Image
-            src={process.env.EXPO_PUBLIC_HIGH_IMAGE_URL + backdrop} 
+            source={{uri: process.env.EXPO_PUBLIC_HIGH_IMAGE_URL + backdrop}} 
             style={styles.backdrop}
           />
-        </View>
-
-        <View>
-          <Text>Username: {user.username} pp felan da ekle user için</Text>
         </View>
 
         <View style={styles.likedMovies}>
