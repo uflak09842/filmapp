@@ -5,10 +5,8 @@ const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
     root: {
         flex: 1,
-        maxHeight: height,
-        maxWidth: width,
-        backgroundColor: '#F5EFE7',
         marginHorizontal: 5,
-        marginTop: 5,
+        paddingHorizontal: 5,
+        backgroundColor: '#F5EFE7',
     },
 });

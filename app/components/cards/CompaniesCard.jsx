@@ -18,18 +18,15 @@ const CompaniesCard = ({name, logo}) => {
             aspectRatio: 10 / 2
         },
     });
-
-    const [ loading, setLoading ] = useState(true); 
     
     return(
         <View style={styles.root}>
             <View style={styles.container}>
                 <Image 
-                    source={{uri: process.env.EXPO_PUBLIC_HIGH_IMAGE_URL + logo}} 
+                    source={{uri: process.env.EXPO_PUBLIC_MIDDLE_IMAGE_URL + logo}} 
+                    loadingIndicatorSource={require('../../../assets/images/gray.png')}
                     style={styles.logo} 
                     resizeMode={"contain"}
-                    onLoadStart={() => setLoading(true)}
-                    onLoadEnd={() => setLoading(false)}
                 />
             </View>
         </View>

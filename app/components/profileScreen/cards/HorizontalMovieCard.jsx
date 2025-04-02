@@ -1,13 +1,49 @@
 import { View, Text, ActivityIndicator, FlatList, TouchableWithoutFeedback, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './HorizontalMovieCard.style.js';
-import axios from 'axios';
-import axiosInstance from '../../axiosInstance.js';
 import { router } from 'expo-router';
 
-export default HorizontalMovieCard = ({movies, title}) => {
+export default HorizontalMovieCard = ({movies, title, loading}) => {
+  if (!movies) return (
+    <View style={styles.footerLoader}>
+      <ActivityIndicator size="small" color="#4F709C" />
+    </View>
+  );
 
-  if(!movies) return <ActivityIndicator size={50} />
+  const handleSelect = (id) => {
+    router.push({pathname: '/detail/DetailScreen', params: {id: id} });
+  };
+
+  const renderItem = ({item}) => (
+    <TouchableWithoutFeedback onPress={() => handleSelect(item.id)}>
+      <View style={styles.flatlist}>
+        <View style={styles.imageView}>
+          <Image 
+            style={styles.filmler} 
+            source={{uri: process.env.EXPO_PUBLIC_MIDDLE_IMAGE_URL + item.poster }} 
+            defaultSource={require('../../../../assets/images/gray.png')}
+            resizeMode='cover'
+          />
+        </View>
+        <Text
+          style={styles.movieTitle}
+          numberOfLines={1}
+        >
+          {item.title}
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+
+  const renderFooter = () => {
+    if (!loading) return null;
+    
+    return (
+      <View style={styles.footerLoader}>
+        <ActivityIndicator size="small" color="#4F709C" />
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -15,33 +51,14 @@ export default HorizontalMovieCard = ({movies, title}) => {
         <Text style={styles.title}>{title || 'Filmler'}</Text>
       </View>
 
-      <View>
-        <FlatList 
-          data={movies}
-          horizontal={true}
-          renderItem={({item}) => {
-            const handleSelect = (id) => {
-              router.push({pathname: '/detail/DetailScreen', params: {id: id} });
-            };
-
-            return(
-              <TouchableWithoutFeedback onPress={() => {handleSelect(item.id)}}>
-                <View style={styles.flatlist}>
-                  <View style={styles.imageView}>
-                    <Image 
-                      style={styles.filmler} 
-                      source={{uri: process.env.EXPO_PUBLIC_MIDDLE_IMAGE_URL + item.poster }} 
-                      loadingIndicatorSource={{uri: process.env.EXPO_PUBLIC_LOW_IMAGE_URL + item.poster }}
-                      resizeMode='cover'
-                    />
-                  </View>
-                </View>
-              </TouchableWithoutFeedback>
-            )
-
-          }}
-        />
-      </View>
+      <FlatList 
+        data={movies}
+        horizontal={true}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => `horizontal-movie-${item.id}-${index}`}
+        showsHorizontalScrollIndicator={false}
+        ListFooterComponent={renderFooter}
+      />
     </View>
-  )
-}
+  );
+};

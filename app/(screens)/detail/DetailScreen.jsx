@@ -10,7 +10,7 @@ import styles from './detailScreen.style';
 import CompaniesCard from '../../components/cards/CompaniesCard';
 import { FontAwesome } from '@expo/vector-icons';
 import axiosInstance from '../../components/axiosInstance';
-import RecommendationsCard from '../../components/cards/RecommendationsCard';
+import HorizontalMovieCard from '../../components/profileScreen/cards/HorizontalMovieCard';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
@@ -22,6 +22,7 @@ const DetailScreen = () => {
   const [watched, setWatch ] = useState(false);
 
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
+  const { loading: recommendLoading, error: recommendError, data } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/recommendMovies`, { id })
 
   useEffect(() => {
     const getStates = async () => {
@@ -185,7 +186,7 @@ const DetailScreen = () => {
       }
 
       <View style={styles.recommendCard}>
-        <RecommendationsCard id={id} />
+        <HorizontalMovieCard movies={data} title={'Önerilen Filmler'} />
       </View>
       
     </ScrollView>
