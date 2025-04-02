@@ -1,45 +1,51 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
+const columnWidth = width / 3 - 16;
 
-export default StyleSheet.create({
-
-    listView: {
-        margin: 5,
-        padding: 5,
-        flex: 1,
-        alignItems: 'center',
-        borderColor: '#4F709C',
-        borderWidth: 3,
-        borderRadius: 5
-    },
-
-    imageView: {
-        
-    },
-
-    image: {
-        width: 100,
-        height: 150,
-        borderWidth: 1,
-        borderRadius: 3,
-    },
-
-    mtView: {
-        marginTop: 5,
-        flex: 1,
-        justifyContent: 'center',
-        alignSelf: "stretch",
-        backgroundColor: '#D8C4B6',
-        padding: 5,
-        borderWidth: 1,
-    },
-
-    mTitle: {
-        textAlign: 'center',
-        fontSize: 15,
-        fontWeight: "700",
-        color: 'black',
-        textAlignVertical: "center"
-    },
+const styles = StyleSheet.create({
+  listView: {
+    margin: 5,
+    width: columnWidth,
+    height: 220,
+    alignItems: 'center',
+  },
+  imageView: {
+    width: '100%',
+    height: 170,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+  mtView: {
+    width: '100%',
+    marginTop: 5,
+  },
+  mTitle: {
+    color: '#000',
+    fontWeight: '600',
+    fontSize: 13,
+    textAlign: 'center',
+  },
+  footerLoader: {
+    alignItems: 'center',
+    paddingVertical: 20,
+    width: '100%',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#555',
+    textAlign: 'center',
+  }
 });
+
+export default styles;
