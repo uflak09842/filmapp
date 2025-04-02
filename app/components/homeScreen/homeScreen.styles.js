@@ -8,6 +8,7 @@ export default StyleSheet.create({
         maxHeight: height,
         maxWidth: width,
         backgroundColor: '#F5EFE7',
-        padding: 5
+        marginHorizontal: 5,
+        marginTop: 5,
     },
 });

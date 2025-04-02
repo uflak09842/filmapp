@@ -26,7 +26,7 @@ import {
       
       return (
         <View style={styles.footerLoader}>
-          <ActivityIndicator size="large" color="#4F709C" />
+          <ActivityIndicator size="small" color="#4F709C" />
         </View>
       );
     };

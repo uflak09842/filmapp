@@ -96,6 +96,10 @@ const ProfileScreen = () => {
           />
         </View>
 
+        <View>
+          <Text>{user.username}</Text>
+        </View>
+
         <View style={styles.likedMovies}>
           <HorizontalMovieCard movies={likedMovies} title={'Beğenilen Filmler'} />
         </View>
