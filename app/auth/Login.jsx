@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, Image } from 'react-native';
 import { router, Link } from 'expo-router';
 import { Formik } from 'formik';
-
 import { useAuth } from '../context/AuthContext.jsx';
 import { LoginSchema } from '../components/authSchema.js';
-
+import { MaterialIcons } from '@expo/vector-icons';
 import styles from './authStyle.js';
 
 const Login = () => {
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const { login } = useAuth();
 
   const handleSubmit = async ({ email, password }, setStatus) => {
     const result = await login(email, password);
-
-    if(result && !result.error) {
+    if (result && !result.error) {
       router.replace('/');
     } else {
       setStatus(result.msg);
@@ -24,13 +21,23 @@ const Login = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.logoContainer}>
+        {/* Uygulama logosunu koy */}
+        <View style={styles.logoPlaceholder}>
+          <Text style={styles.logoText}>APP</Text>
+        </View>
+      </View>
+
+      <View style={styles.formContainer}>
+        <Text style={styles.title}>Hoş Geldiniz</Text>
+        <Text style={styles.subtitle}>Hesabınıza giriş yapın</Text>
+
         <Formik
-          initialValues={{email: '', password: ''}}
+          initialValues={{ email: '', password: '' }}
           validationSchema={LoginSchema}
           onSubmit={(values, { setStatus }) => {
-            handleSubmit(values, setStatus)
+            handleSubmit(values, setStatus);
           }}
         >
           {({
@@ -43,70 +50,101 @@ const Login = () => {
             touched,
             status
           }) => (
-
-            <View>
-              <Text style={styles.title}>Giriş Yap</Text>
-
-              <View style={styles.lieView}>
-                <Text style={styles.text}>E-Mail</Text>
-                <TextInput 
-                  style={styles.input}
-                  keyboardType='email-address'
-                  inputMode='email'
-                  autoComplete='email'
-                  maxLength={50}
-                  multiline={false}
-                  placeholder='örnek@gmail.com'
-                  placeholderTextColor={"gray"}
-
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                />
-
+            <View style={styles.formInner}>
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>E-Mail</Text>
+                <View style={[
+                  styles.inputWrapper,
+                  touched.email && errors.email ? styles.inputError : null
+                ]}>
+                  <MaterialIcons name="email" size={20} color="#666" style={styles.inputIcon} />
+                  <TextInput
+                    style={styles.input}
+                    keyboardType="email-address"
+                    inputMode="email"
+                    autoComplete="email"
+                    maxLength={50}
+                    multiline={false}
+                    placeholder="örnek@gmail.com"
+                    placeholderTextColor="#9CA3AF"
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                  />
+                </View>
                 {errors.email && touched.email && (
                   <Text style={styles.errorText}>{errors.email}</Text>
                 )}
               </View>
 
-              <View style={styles.lieView}>
-                <Text style={styles.text}>Şifre</Text>
-                <TextInput 
-                  style={styles.input}
-                  keyboardType='visible-password'
-                  inputMode='password'
-                  maxLength={20}
-                  multiline={false}
-                  placeholder='******'
-                  placeholderTextColor={"gray"}
-
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
-                />
-
-              {errors.password && touched.password && (
-                <Text style={styles.errorText}>{errors.password}</Text>
-              )}
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Şifre</Text>
+                <View style={[
+                  styles.inputWrapper,
+                  touched.password && errors.password ? styles.inputError : null
+                ]}>
+                  <MaterialIcons name="lock" size={20} color="#666" style={styles.inputIcon} />
+                  <TextInput
+                    style={styles.input}
+                    secureTextEntry={secureTextEntry}
+                    maxLength={20}
+                    multiline={false}
+                    placeholder="******"
+                    placeholderTextColor="#9CA3AF"
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    value={values.password}
+                  />
+                  <TouchableOpacity 
+                    style={styles.eyeIcon} 
+                    onPress={() => setSecureTextEntry(!secureTextEntry)}
+                  >
+                    <MaterialIcons 
+                      name={secureTextEntry ? "visibility" : "visibility-off"} 
+                      size={20} 
+                      color="#666" 
+                    />
+                  </TouchableOpacity>
+                </View>
+                {errors.password && touched.password && (
+                  <Text style={styles.errorText}>{errors.password}</Text>
+                )}
               </View>
 
-              {status && <Text style={styles.errorText}>{status}</Text>}
+              <TouchableOpacity style={styles.forgotPassword}>
+                <Text style={styles.linkText}>Şifremi Unuttum</Text>
+              </TouchableOpacity>
 
-              <View style={styles.button}>
-                <Button title='Giriş Yap' onPress={handleSubmit} />
+              {status && <Text style={styles.statusError}>{status}</Text>}
+
+              <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
+                <Text style={styles.registerButtonText}>Giriş Yap</Text>
+              </TouchableOpacity>
+
+              <View style={styles.divider}>
+                <View style={styles.dividerLine} />
+                <Text style={styles.dividerText}>VEYA</Text>
+                <View style={styles.dividerLine} />
               </View>
-            
+
+              <TouchableOpacity style={styles.socialButton}>
+                <Text style={styles.socialButtonText}>Google ile Giriş Yap</Text>
+              </TouchableOpacity>
             </View>
           )}
         </Formik>
-        <View style={styles.footerView}>
-          <Text>Hesabın Yok Mu ? <Link style={styles.linkText} href={'/auth/Register'}>Kayıt ol</Link></Text>
-        </View>
-        
       </View>
 
-    </View>
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>
+          Hesabın Yok Mu? {' '}
+          <Link href="/auth/Register" style={styles.linkText}>
+            Kayıt Ol
+          </Link>
+        </Text>
+      </View>
+    </SafeAreaView>
   );
-}
+};
 
 export default Login
