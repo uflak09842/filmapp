@@ -5,7 +5,7 @@ export default function TabLayout() {
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: '#4F709C',  headerShown: false, }}>
       <Tabs.Screen
-        name="Home"
+        name="home" // home da ki drawer karışmaması için
         options={{
           title: 'Ana Sayfa',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,

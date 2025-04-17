@@ -1,11 +1,11 @@
 import { View, Text, Button, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useAuth } from '../../context/AuthContext';
-import axiosInstance from '../../components/axiosInstance';
-import styles from '../../components/homeScreen/homeScreen.styles';
+import { useAuth } from '../../../context/AuthContext';
+import axiosInstance from '../../../components/axiosInstance';
+import styles from '../../../components/homeScreen/homeScreen.styles';
 import { router, Redirect } from 'expo-router';
-import MoviesCard from '../../components/cards/MoviesCard/MoviesCard';
+import MoviesCard from '../../../components/cards/MoviesCard/MoviesCard';
 
 const Home = () => {
   

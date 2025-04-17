@@ -36,7 +36,7 @@ export default function Index() {
 
     if(authState?.authenticated) {
         if(preferences?.prefSelected) {
-            return <Redirect href={'(screens)/Home'} />
+            return <Redirect href={'(screens)/(tabs)/home'} />
         } else {
             return <Redirect href={'/preferences/PreferencesScreen'} />;
         }
