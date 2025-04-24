@@ -22,10 +22,18 @@ export default function HomeLayout() {
             width: '75%',
           },
           drawerPosition: 'right',
+          drawerActiveBackgroundColor: '#4F709C',
+          drawerActiveTintColor: 'white',
         }}
       >
-        <Drawer.Screen name="index" options={{ drawerLabel: "Ana Sayfa" }} />
-        <Drawer.Screen name="list/index" options={{ drawerLabel: "Listeler"}} />
+        <Drawer.Screen name="index" options={{ 
+            drawerLabel: "Ana Sayfa", 
+            drawerIcon: ({ color }) => <FontAwesome size={24} name="home" color={color} />,
+        }}/>
+        <Drawer.Screen name="list/index" options={{ 
+            drawerLabel: "Listeler",
+            drawerIcon: ({ color }) => <FontAwesome size={24} name="list-ul" color={color} />,
+        }}/>
       </Drawer>
     </GestureHandlerRootView>
   );
