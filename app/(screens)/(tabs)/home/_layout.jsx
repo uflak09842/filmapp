@@ -18,7 +18,7 @@ export default function HomeLayout() {
           header: () => <CustomHeader />,
           drawerType: 'front',
           drawerStyle: {
-            backgroundColor: '#F5EFE7',
+            backgroundColor: '#F2F3F4',
             width: '75%',
           },
           drawerPosition: 'right',
@@ -53,7 +53,7 @@ function CustomHeader() {
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: 16,
-      backgroundColor: '#F5EFE7',
+      backgroundColor: '#F2F3F4',
       borderBottomWidth: 1,
       borderBottomColor: '#ccc'
     }}>

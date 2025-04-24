@@ -5,7 +5,7 @@ const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5EFE7',
+        backgroundColor: '#F2F3F4',
       },
       keyboardView: {
         flex: 1,

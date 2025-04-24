@@ -7,6 +7,6 @@ export default StyleSheet.create({
         flex: 1,
         marginHorizontal: 5,
         paddingHorizontal: 5,
-        backgroundColor: '#F5EFE7',
+        backgroundColor: '#F2F3F4',
     },
 });
