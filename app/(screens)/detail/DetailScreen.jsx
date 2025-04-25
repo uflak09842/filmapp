@@ -21,6 +21,8 @@ const DetailScreen = () => {
   const [like, setLike ] = useState(false);
   const [watched, setWatch ] = useState(false);
 
+  const [ frontError, setFrontError ] = useState(null);
+
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
   const { loading: recommendLoading, error: recommendError, data } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/recommendMovies`, { id })
 
@@ -49,6 +51,7 @@ const DetailScreen = () => {
 
   const handleLike = async () => {
     if(like) {
+      setFrontError(null);
       setLike(false);
       try {
         const response = await axiosInstance.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/deleteLike`, { mvId });
@@ -56,7 +59,22 @@ const DetailScreen = () => {
         console.error(err);
       }
     } else {
+      setFrontError(null);
       setLike(true);
+
+      if(!watched) {
+        setWatch(true);
+
+        try {
+          await axiosInstance.post(
+            `${process.env.EXPO_PUBLIC_SERVER_URL}/addWatch`,
+            { mvId }
+          );
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      
       try {
         const response = await axiosInstance.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/addLike`, { mvId })
       } catch (err) {
@@ -66,6 +84,11 @@ const DetailScreen = () => {
   }
 
   const handleWatch = async () => {
+    if(watched && like) {
+      setFrontError('Beğeninizi Kaldırmadan İzleme Durumunu Değiştiremezsiniz');
+      return;
+    }
+
     if(watched) {
       setWatch(false);
       try {
@@ -159,6 +182,15 @@ const DetailScreen = () => {
         </TouchableOpacity>
         
       </View>
+      
+      {
+        frontError ?
+        <View style={styles.errorView}>
+          <Text style={styles.error}>{frontError}</Text>
+        </View> :
+        null
+      }
+      
 
       {
         !movie.description || movie.description === null ?

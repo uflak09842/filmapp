@@ -6,7 +6,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useEffect } from 'react';
 
 const routeTitles = { //direkt klasör adını vermek yerine filtre
-    home: 'Ana Sayfa',
+    home: 'Önerilenler',
     list: 'Listeler',
 };
 

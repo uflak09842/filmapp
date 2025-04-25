@@ -137,4 +137,14 @@ export default StyleSheet.create({
         marginVertical: 10,
         marginBottom: 50
     },
+
+    errorView: {
+        margin: 10,
+    },
+
+    error: {
+        fontSize: 16,
+        textAlign: 'center',
+        color: 'red'
+    }
 });
