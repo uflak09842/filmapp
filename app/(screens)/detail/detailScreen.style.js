@@ -133,6 +133,14 @@ export default StyleSheet.create({
         textAlignVertical: "center",
     },
 
+    actorView: {
+        paddingVertical: 10,
+    },
+
+    actorCard: {
+        paddingHorizontal: 5,
+    },
+
     recommendCard: {
         marginVertical: 10,
         marginBottom: 50

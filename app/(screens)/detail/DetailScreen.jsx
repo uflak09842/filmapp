@@ -11,6 +11,7 @@ import CompaniesCard from '../../components/cards/CompaniesCard';
 import { FontAwesome } from '@expo/vector-icons';
 import axiosInstance from '../../components/axiosInstance';
 import HorizontalMovieCard from '../../components/profileScreen/cards/HorizontalMovieCard';
+import ActorCard from '../../components/profileScreen/cards/ActorCard';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams();
@@ -24,7 +25,8 @@ const DetailScreen = () => {
   const [ frontError, setFrontError ] = useState(null);
 
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
-  const { loading: recommendLoading, error: recommendError, data } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/recommendMovies`, { id })
+  const { loading: recommendLoading, error: recommendError, data } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/recommendMovies`, { id });
+  const { loading: actorLoading, error: actorError, data: actorData } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/actors`, { id });
 
   useEffect(() => {
     const getStates = async () => {
@@ -191,13 +193,27 @@ const DetailScreen = () => {
         null
       }
       
-
       {
         !movie.description || movie.description === null ?
         null :
         <View style={styles.descView}>
           <Text style={styles.desc}>{ movie.description }</Text>
         </View>
+      }
+
+      {
+        actorData ?
+        <View style={styles.actorView}>
+          <FlatList 
+            data={actorData}
+            keyExtractor={(item, index) => `actor-${item.id}-${index}`}
+            renderItem={({item}) => <ActorCard actor={item} />}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.actorCard}
+          />
+        </View>
+        : null
       }
 
       {

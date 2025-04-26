@@ -15,7 +15,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name='search/SearchScreen'
         options={{
-            title: 'Ara',
+            title: 'Keşfet',
             tabBarIcon: ({ color }) => <FontAwesome size={28} name="search" color={color} />,
         }}
       />
