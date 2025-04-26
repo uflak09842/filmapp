@@ -5,12 +5,12 @@ import { useRouter } from 'expo-router';
 const ActorCard = ({ actor }) => {
   const router = useRouter();
 
-  const handlePress = () => {
-    router.push({pathname: '/detail/actor', params: {id: actor.actorId} });
+  const handlePress = (actorId) => {
+    router.push({pathname: '/detail/credits', params: {actorId: actorId} });
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={handlePress}>
+    <TouchableOpacity style={styles.container} onPress={() => handlePress(actor.actorId)}>
       <Image
         source={{ uri: `https://image.tmdb.org/t/p/w185${actor.profile}` }}
         style={styles.image}

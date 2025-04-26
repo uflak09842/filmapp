@@ -26,7 +26,7 @@ const DetailScreen = () => {
 
   const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
   const { loading: recommendLoading, error: recommendError, data } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/recommendMovies`, { id });
-  const { loading: actorLoading, error: actorError, data: actorData } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/actors`, { id });
+  const { loading: actorLoading, error: actorError, data: actorData } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/credits`, { id });
 
   useEffect(() => {
     const getStates = async () => {
