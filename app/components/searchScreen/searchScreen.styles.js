@@ -47,7 +47,7 @@ export default StyleSheet.create({
     },
 
     titleView: {
-        backgroundColor: '#D8C4B6',
+        backgroundColor: '#F2F3F4',
         marginTop: 10,
         borderRadius: 3,
     },

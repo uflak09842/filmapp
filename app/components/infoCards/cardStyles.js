@@ -7,7 +7,7 @@ export default StyleSheet.create({
         flex: 1,
         maxHeight: height,
         maxWidth: width,
-        backgroundColor: '#F5EFE7',
+        backgroundColor: '#F2F3F4',
         justifyContent: 'center',
         padding: 5,
     },

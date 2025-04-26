@@ -65,7 +65,7 @@ const Home = () => {
     return (
       <ActivityIndicator 
         size='large' 
-        style={{flex: 1, alignSelf: 'center', backgroundColor: '#F5EFE7', width: '100%'}} 
+        style={{flex: 1, alignSelf: 'center', backgroundColor: '#F2F3F4', width: '100%'}} 
       />
     );
   }
