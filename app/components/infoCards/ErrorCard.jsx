@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const ErrorCard = ({desc, navigate}) => {
     if(!desc || desc === null) desc = 'Bilinmeyen Bir Hata Oluştu';
-    if (!navigate) navigate = '/(tabs)/Home';
+    if (!navigate) navigate = '/';
 
     return(
         <View style={styles.root}>
