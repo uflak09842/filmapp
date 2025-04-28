@@ -114,10 +114,9 @@ const DetailScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+    <View style={{ flex: 1, backgroundColor: '#F2F3F4' }}>
       
       <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-        {/* Hero Section with Backdrop */}
         <View style={{ height: height * 0.55, position: 'relative' }}>
           {bgLoad && (
             <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', zIndex: 2 }}>
@@ -135,7 +134,7 @@ const DetailScreen = () => {
               colors={['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.8)', '#FFFFFF']}
               style={{ flex: 1, justifyContent: 'flex-end', padding: 20 }}
             >
-              {/* Back Button */}
+
               <TouchableOpacity 
                 style={{ position: 'absolute', top: 50, right: 20, zIndex: 10 }}
                 onPress={() => router.push('/search/SearchScreen')}
@@ -145,9 +144,8 @@ const DetailScreen = () => {
                 </View>
               </TouchableOpacity>
               
-              {/* Title and Info */}
               <View style={{ flexDirection: 'row', marginBottom: 15, alignItems: 'flex-end' }}>
-                {/* Poster */}
+
                 <View style={{ 
                   marginRight: 15, 
                   borderRadius: 8, 
@@ -175,7 +173,6 @@ const DetailScreen = () => {
                   />
                 </View>
                 
-                {/* Title and Basic Info */}
                 <View style={{ flex: 1 }}>
                   <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#333', marginBottom: 5 }}>
                     {movie.title}
@@ -193,7 +190,6 @@ const DetailScreen = () => {
                   
                   <Text style={{ fontSize: 14, color: '#555', marginBottom: 10 }}>{genres}</Text>
                   
-                  {/* Action Buttons */}
                   <View style={{ flexDirection: 'row', marginTop: 5 }}>
                     <TouchableOpacity 
                       onPress={handleLike}
@@ -240,7 +236,6 @@ const DetailScreen = () => {
           </ImageBackground>
         </View>
         
-        {/* Error message if any */}
         {frontError ? (
           <View style={{ 
             backgroundColor: 'rgba(255, 76, 76, 0.1)', 
@@ -254,7 +249,6 @@ const DetailScreen = () => {
           </View>
         ) : null}
         
-        {/* Description */}
         {movie.description ? (
           <View style={{ 
             paddingHorizontal: 20, 
@@ -284,8 +278,7 @@ const DetailScreen = () => {
             )}
           </View>
         ) : null}
-        
-        {/* Cast Section */}
+
         {actorData && actorData.length > 0 ? (
           <View style={{ marginTop: 25 }}>
             <View style={{ 
@@ -315,8 +308,7 @@ const DetailScreen = () => {
             />
           </View>
         ) : null}
-        
-        {/* Production Companies */}
+
         {productions && productions.length > 0 ? (
           <View style={{ marginTop: 25 }}>
             <View style={{ 
@@ -347,7 +339,6 @@ const DetailScreen = () => {
           </View>
         ) : null}
         
-        {/* Recommended Movies */}
         {data && data.length > 0 ? (
           <View style={{ marginTop: 25, marginBottom: 30 }}>
             <HorizontalMovieCard movies={data} title={'Önerilen Filmler'} />
