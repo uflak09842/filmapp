@@ -118,7 +118,7 @@ const styles = {
     height: 165,
     borderRadius: 8,
     overflow: 'hidden',
-    borderWidth: 2,
+    borderWidth: 2.5,
     borderColor: '#4F709C',
     backgroundColor: '#FFF',
     shadowColor: '#000',

@@ -47,27 +47,21 @@ const PersonDetailScreen = () => {
 
   const calculateAge = () => {
     if (!person.birthday) return null;
-    
     const birthDate = new Date(person.birthday);
     let endDate = new Date();
-    
     if (person.deathday) {
       endDate = new Date(person.deathday);
     }
-    
     let age = endDate.getFullYear() - birthDate.getFullYear();
     const m = endDate.getMonth() - birthDate.getMonth();
-    
     if (m < 0 || (m === 0 && endDate.getDate() < birthDate.getDate())) {
       age--;
     }
-    
     return age;
   };
 
   const formatDate = (dateString) => {
     if (!dateString) return null;
-    
     const date = new Date(dateString);
     return date.toLocaleDateString('tr-TR', {
       day: 'numeric',
@@ -89,7 +83,7 @@ const PersonDetailScreen = () => {
       >
         <FontAwesome name='arrow-circle-left' color={'#333'} size={30} />
       </TouchableOpacity>
-      
+
       <View style={styles.header}>
         <View style={styles.profileImageContainer}>
           {profileImageLoading && (
@@ -107,10 +101,9 @@ const PersonDetailScreen = () => {
             onLoadEnd={() => setProfileImageLoading(false)}
           />
         </View>
-        
+
         <View style={styles.basicInfo}>
           <Text style={styles.name}>{person.name}</Text>
-          
           <View style={styles.statsContainer}>
             {person.popularity && (
               <View style={styles.statItem}>
@@ -118,7 +111,6 @@ const PersonDetailScreen = () => {
                 <Text style={styles.statValue}>{person.popularity.toFixed(1)}</Text>
               </View>
             )}
-            
             {calculateAge() && (
               <View style={styles.statItem}>
                 <FontAwesome name="birthday-cake" size={16} color="#3498db" />
@@ -126,7 +118,6 @@ const PersonDetailScreen = () => {
               </View>
             )}
           </View>
-          
           <View style={styles.infoRows}>
             {person.birthday && (
               <View style={styles.infoRow}>
@@ -134,33 +125,41 @@ const PersonDetailScreen = () => {
                 <Text style={styles.infoValue}>{formatDate(person.birthday)}</Text>
               </View>
             )}
-            
             {person.deathday && (
               <View style={styles.infoRow}>
                 <Text style={styles.infoLabel}>Ölüm Tarihi:</Text>
                 <Text style={styles.infoValue}>{formatDate(person.deathday)}</Text>
               </View>
             )}
-            
             {person.place_of_birth && (
               <View style={styles.infoRow}>
                 <Text style={styles.infoLabel}>Doğum Yeri:</Text>
                 <Text style={styles.infoValue}>{person.place_of_birth}</Text>
               </View>
             )}
-            
-            {person.imdb_id && (
-              <TouchableOpacity 
-                style={styles.imdbButton}
-                onPress={() => Linking.openURL(`https://www.imdb.com/name/${person.imdb_id}/`)}
-              >
-                <Text style={styles.imdbText}>IMDb Profilini Görüntüle</Text>
-              </TouchableOpacity>
-            )}
           </View>
         </View>
       </View>
-      
+
+      <View style={styles.actionButtonsContainer}>
+        {person.imdb_id && (
+          <TouchableOpacity 
+            style={styles.imdbButton}
+            onPress={() => Linking.openURL(`https://www.imdb.com/name/${person.imdb_id}/`)}
+          >
+            <Text style={styles.buttonText}>IMDB Sayfası</Text>
+          </TouchableOpacity>
+        )}
+        {person.homepage && (
+          <TouchableOpacity 
+            style={[styles.imdbButton, { backgroundColor: '#4F709C' }]}
+            onPress={() => Linking.openURL(person.homepage)}
+          >
+            <Text style={[styles.buttonText, {color: 'white'}]}>Oyuncu Sitesi</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
       {person.biography && (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Biyografi</Text>
@@ -179,7 +178,7 @@ const PersonDetailScreen = () => {
           )}
         </View>
       )}
-    
+
       {movieCredits.length > 0 && (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Filmografi</Text>
@@ -322,17 +321,28 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
   },
-  imdbButton: {
-    backgroundColor: '#f3ce13',
-    borderRadius: 5,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    alignItems: 'center',
+  actionButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 15,
     marginTop: 10,
+    marginBottom: 10,
   },
-  imdbText: {
-    color: 'black',
-    fontWeight: '600',
+  imdbButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    backgroundColor: '#f3ce13',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  buttonText: {
+    color: '#000',
+    fontWeight: '700',
+    fontSize: 14,
   },
   section: {
     backgroundColor: 'white',

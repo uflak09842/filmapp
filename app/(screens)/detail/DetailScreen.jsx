@@ -202,7 +202,8 @@ const DetailScreen = () => {
                         alignItems: 'center',
                         marginRight: 10,
                         borderWidth: 1,
-                        borderColor: like ? '#4F709C' : 'rgba(79, 112, 156, 0.3)'
+                        borderColor: like ? '#4F709C' : 'rgba(79, 112, 156, 0.3)',
+                        zIndex: 10
                       }}
                     >
                       <FontAwesome name={like ? 'heart' : 'heart-o'} size={16} color={like ? 'white' : '#4F709C'} />
@@ -221,7 +222,8 @@ const DetailScreen = () => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         borderWidth: 1,
-                        borderColor: watched ? '#D8C4B6' : 'rgba(216, 196, 182, 0.5)'
+                        borderColor: watched ? '#D8C4B6' : 'rgba(216, 196, 182, 0.5)',
+                        zIndex: 10,
                       }}
                     >
                       <FontAwesome name={watched ? 'eye' : 'eye-slash'} size={16} color={watched ? 'white' : '#D8C4B6'} />

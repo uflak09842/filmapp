@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import styles from './PreferencesScreen.style';
 import { router } from 'expo-router';
@@ -36,7 +36,7 @@ export default function PreferencesScreen() {
       } else if (prev.length >= 4) {
         return prev;
       }
-       else {
+      else {
         return [...prev, genreId];
       }
     });
@@ -73,8 +73,7 @@ export default function PreferencesScreen() {
   };
 
   return (
-    <View style={styles.root}>
-
+    <ScrollView style={styles.root}>
       <View style={styles.container}>
         <View style={styles.titleView}>
           <Text style={styles.title}>En Çok Sevdiğiniz 4 Türü Seçin</Text>
@@ -87,6 +86,7 @@ export default function PreferencesScreen() {
             keyExtractor={item => item.id.toString()}
             numColumns={3}
             contentContainerStyle={styles.listContainer}
+            scrollEnabled={false} // Scrollu ScrollView'a verdik
           />
           <TouchableOpacity 
             style={[
@@ -100,6 +100,6 @@ export default function PreferencesScreen() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
