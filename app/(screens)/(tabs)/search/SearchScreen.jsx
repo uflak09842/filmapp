@@ -89,6 +89,8 @@ const SearchScreen = () => {
   }
 
   const handleClear = () => {
+    if(!submit) return;
+
     setSubmit(false);
     setSearch("");
     setRefreshing(true);
