@@ -12,7 +12,11 @@ const ActorCard = ({ actor }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => handlePress(actor.actorId)}>
       <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w185${actor.profile}` }}
+        source={
+          actor.profile ?
+          { uri: `https://image.tmdb.org/t/p/w185${actor.profile}` } :
+          require('../../../../assets/images/gray.png')
+        }
         style={styles.image}
       />
       <Text style={styles.character} numberOfLines={1}>

@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     top: 40,
-    left: 20,
+    right: 20,
     zIndex: 10,
     backgroundColor: 'rgba(255,255,255,0.8)',
     borderRadius: 20,
