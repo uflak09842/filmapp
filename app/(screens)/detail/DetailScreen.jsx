@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, ScrollView, Image, FlatList, TouchableOpacity, StatusBar, ImageBackground, Dimensions } from 'react-native';
+import { 
+  View, 
+  Text, 
+  ActivityIndicator, 
+  ScrollView, 
+  Image, 
+  FlatList, 
+  TouchableOpacity, 
+  StatusBar, 
+  ImageBackground, 
+  Dimensions 
+} from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -231,6 +242,7 @@ const DetailScreen = () => {
                         {watched ? 'İzlendi' : 'İzlemedim'}
                       </Text>
                     </TouchableOpacity>
+                    
                   </View>
                 </View>
               </View>

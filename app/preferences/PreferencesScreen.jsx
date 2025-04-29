@@ -65,7 +65,7 @@ export default function PreferencesScreen() {
         genres: selectedGenres
       });
       if (response.status === 200) {
-        router.push('(screens)/Home');
+        router.push('/home/');
       }
     } catch (err) {
       console.error(err);
