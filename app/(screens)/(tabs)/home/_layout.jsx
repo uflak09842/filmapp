@@ -30,10 +30,12 @@ export default function HomeLayout() {
             drawerLabel: "Ana Sayfa", 
             drawerIcon: ({ color }) => <FontAwesome size={24} name="home" color={color} />,
         }}/>
+
         <Drawer.Screen name="list/index" options={{ 
             drawerLabel: "Listeler",
             drawerIcon: ({ color }) => <FontAwesome size={24} name="list-ul" color={color} />,
         }}/>
+
       </Drawer>
     </GestureHandlerRootView>
   );
