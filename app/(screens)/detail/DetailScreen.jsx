@@ -242,7 +242,6 @@ const DetailScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              {/* Search bar */}
               <View style={{ 
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -277,7 +276,6 @@ const DetailScreen = () => {
                 ) : null}
               </View>
 
-              {/* New list */}
               <View style={{ 
                 flexDirection: 'row', 
                 marginBottom: 15,
@@ -311,7 +309,6 @@ const DetailScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              {/* List title */}
               {filtered.length > 0 ? (
                 <Text style={{ fontSize: 15, fontWeight: '500', color: '#555', marginBottom: 8 }}>
                   Mevcut Listeler ({filtered.length})
@@ -387,8 +384,6 @@ const DetailScreen = () => {
                 )
               }
               
-
-              {/* Save button */}
               <TouchableOpacity
                 onPress={handleAddToList}
                 disabled={!selectedList || isAddingToList || addSuccess}
@@ -442,7 +437,7 @@ const DetailScreen = () => {
 
               <TouchableOpacity 
                 style={{ position: 'absolute', top: 50, right: 20, zIndex: 10 }}
-                onPress={() => router.push('/search/SearchScreen')}
+                onPress={() => router.back() /*push('/search/SearchScreen')*/}
               >
                 <View style={{ backgroundColor: 'rgba(255,255,255,0.7)', borderRadius: 20, padding: 8, borderWidth: 1, borderColor: '#4F709C' }}>
                   <FontAwesome name="arrow-left" size={24} color="#4F709C" />
@@ -516,6 +511,7 @@ const DetailScreen = () => {
                     shadowOffset: { width: 0, height: 1 },
                     shadowOpacity: 0.2,
                     shadowRadius: 2,
+                    zIndex: 10,
                   }}
                 >
                   <FontAwesome name="list-ul" size={16} color={'#4F709C'} />
@@ -541,6 +537,7 @@ const DetailScreen = () => {
                     shadowOffset: { width: 0, height: 1 },
                     shadowOpacity: 0.2,
                     shadowRadius: 2,
+                    zIndex: 10,
                   }}
                 >
                   <FontAwesome name={like ? 'heart' : 'heart-o'} size={16} color={like ? 'white' : '#4F709C'} />
@@ -565,6 +562,7 @@ const DetailScreen = () => {
                     shadowOffset: { width: 0, height: 1 },
                     shadowOpacity: 0.2,
                     shadowRadius: 2,
+                    zIndex: 10,
                   }}
                 >
                   <FontAwesome name={watched ? 'eye' : 'eye-slash'} size={16} color={watched ? 'white' : '#D8C4B6'} />

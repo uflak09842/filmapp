@@ -5,7 +5,6 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import axios from 'axios';
 import { router } from 'expo-router';
 import MoviesCard from '../../../components/cards/MoviesCard/MoviesCard';
-import useGet from '../../../components/hooks/normalServer/useGet';
 import ErrorCard from '../../../components/infoCards/ErrorCard';
 
 const SearchScreen = () => {

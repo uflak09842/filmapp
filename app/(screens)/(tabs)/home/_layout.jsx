@@ -7,7 +7,8 @@ import { useEffect } from 'react';
 
 const routeTitles = { //direkt klasör adını vermek yerine filtre
     home: 'Önerilenler',
-    list: 'Listeler',
+    list: 'Listelerim',
+    detail: 'Liste',
 };
 
 export default function HomeLayout() {
@@ -31,8 +32,8 @@ export default function HomeLayout() {
             drawerIcon: ({ color }) => <FontAwesome size={24} name="home" color={color} />,
         }}/>
 
-        <Drawer.Screen name="list/index" options={{ 
-            drawerLabel: "Listeler",
+        <Drawer.Screen name="list" options={{ 
+            drawerLabel: "Listelerim",
             drawerIcon: ({ color }) => <FontAwesome size={24} name="list-ul" color={color} />,
         }}/>
 
@@ -46,7 +47,16 @@ function CustomHeader() {
   const segments = useSegments();
 
   const currentSegment = segments[segments.length - 1];
+
+  if(currentSegment === 'DetailScreen') { //liste/film sayfasından film detaya geçerkenki bug engelliyor.
+    return null;
+  };
+
   const title = routeTitles[currentSegment] || 'Sayfa';
+
+  if(title === 'Liste') { // liste sayfasında başlık sistemi kapatıyom
+    return null;
+  };
 
   return (
     <View style={{
