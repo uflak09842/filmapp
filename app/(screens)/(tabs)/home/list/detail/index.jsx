@@ -64,13 +64,13 @@ const Index = () => {
     router.push({pathname: '/detail/DetailScreen', params: {id: movie.id}});
   };
 
-  const handleDelete = async () => { //YAP BURAYI
+  const handleDelete = async () => {
     if (!selectedMovie) return;
     setModalVisible(false);
     setLoading(true);
     try {
       await axiosInstance.delete(
-        process.env.EXPO_PUBLIC_SERVER_URL + '/removeFromList', // api endpoint oluştur
+        process.env.EXPO_PUBLIC_SERVER_URL + '/listedenKaldir',
         { params: { listId, movieId: selectedMovie.id } }
       );
       const updated = data.movies.filter(m => m.id !== selectedMovie.id);
@@ -135,7 +135,7 @@ const Index = () => {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
-          placeholder="Film ara..."
+          placeholder="Listede ara..."
           value={searchQuery}
           onChangeText={setSearchQuery}
           clearButtonMode="never"
