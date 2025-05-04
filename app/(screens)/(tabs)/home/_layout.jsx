@@ -9,6 +9,8 @@ const routeTitles = { //direkt klasör adını vermek yerine filtre
     home: 'Önerilenler',
     list: 'Listelerim',
     detail: 'Liste',
+    liked: 'Beğendiklerim',
+    watched: 'İzlediklerim'
 };
 
 export default function HomeLayout() {
@@ -35,6 +37,16 @@ export default function HomeLayout() {
         <Drawer.Screen name="list" options={{ 
             drawerLabel: "Listelerim",
             drawerIcon: ({ color }) => <FontAwesome size={24} name="list-ul" color={color} />,
+        }}/>
+
+        <Drawer.Screen name="liked/index" options={{ 
+            drawerLabel: "Beğendiklerim",
+            drawerIcon: ({ color }) => <FontAwesome size={24} name="heart" color={color} />,
+        }}/>
+
+        <Drawer.Screen name="watched/index" options={{ 
+            drawerLabel: "İzlediklerim",
+            drawerIcon: ({ color }) => <FontAwesome size={24} name="eye" color={color} />,
         }}/>
 
       </Drawer>

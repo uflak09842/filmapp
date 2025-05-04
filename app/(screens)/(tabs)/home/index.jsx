@@ -22,7 +22,7 @@ const Home = () => {
     try {
       setLoading(true);
       const response = await axiosInstance.get(
-        `${process.env.EXPO_PUBLIC_SERVER_URL}/recommendations?page=${pageNum}&limit=18`
+        `${process.env.EXPO_PUBLIC_SERVER_URL}/recommendations?page=${pageNum}&limit=12`
       );
       
       const { results, page: currentPage, totalPages } = response.data;

@@ -19,7 +19,7 @@ const ActorCard = ({ actor }) => {
         }
         style={styles.image}
       />
-      <Text style={styles.character} numberOfLines={1}>
+      <Text style={styles.character} numberOfLines={2}>
         {actor.character}
       </Text>
     </TouchableOpacity>

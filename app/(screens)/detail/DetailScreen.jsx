@@ -30,6 +30,7 @@ import CompaniesCard from '../../components/cards/CompaniesCard';
 import axiosInstance from '../../components/axiosInstance';
 import HorizontalMovieCard from '../../components/profileScreen/cards/HorizontalMovieCard';
 import ActorCard from '../../components/profileScreen/cards/ActorCard';
+import MoviesCard from '../../components/cards/MoviesCard/MoviesCard';
 
 const { width, height } = Dimensions.get('window');
 
@@ -106,7 +107,13 @@ const DetailScreen = () => {
       setFrontError(null);
       setLike(false);
       try {
-        await axiosInstance.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/deleteLike`, { mvId });
+        await axiosInstance.delete(`${process.env.EXPO_PUBLIC_SERVER_URL}/deleteLike`, {
+          data: {
+            data: {
+              mvId: mvId
+            }
+          }
+        });
       } catch (err) {
         console.error(err);
       }
@@ -143,7 +150,11 @@ const DetailScreen = () => {
     if (watched) {
       setWatch(false);
       try {
-        await axiosInstance.post(`${process.env.EXPO_PUBLIC_SERVER_URL}/deleteWatch`, { mvId });
+        await axiosInstance.delete(`${process.env.EXPO_PUBLIC_SERVER_URL}/deleteWatch`, {
+          data: {
+            mvId: mvId
+          }
+        });
       } catch (err) {
         console.error(err);
       }
@@ -226,7 +237,7 @@ const DetailScreen = () => {
               shadowOpacity: 0.3,
               shadowRadius: 6,
             }}>
-              {/* Header */}
+
               <View style={{ 
                 flexDirection: 'row', 
                 justifyContent: 'space-between', 
@@ -319,7 +330,6 @@ const DetailScreen = () => {
                 </Text>
               )}
 
-              {/* Existing lists */}
               <ScrollView 
                 style={{ 
                   maxHeight: 200, 
@@ -521,7 +531,7 @@ const DetailScreen = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                  onPress={handleLike}
+                  onPress={() => handleLike()}
                   style={{ 
                     backgroundColor: like ? '#4F709C' : 'rgba(79, 112, 156, 0.1)', 
                     paddingVertical: 10, 
