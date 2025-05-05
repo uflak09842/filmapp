@@ -204,6 +204,14 @@ const LikedMovies = () => {
         );
     }
 
+    if(movies.length <= 0) {
+        return (
+            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+                <Text>Henüz Beğendiğiniz Bir Film Yok.</Text>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.filterButtonContainer}>

@@ -4,6 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useLocalSearchParams, router } from 'expo-router';
 import axios from 'axios';
 import useGet from '../../../components/hooks/normalServer/useGet';
+import axiosInstance from '../../../components/axiosInstance';
 
 const PersonDetailScreen = () => {
   const { actorId } = useLocalSearchParams();
@@ -12,12 +13,35 @@ const PersonDetailScreen = () => {
   const [movieCredits, setMovieCredits] = useState([]);
   const [showFullBio, setShowFullBio] = useState(false);
 
-  const { loading, error, data: person } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/personDetails`, { actorId });
+  const [ person, setPerson ] = useState();
+  const [ error, seterror ] = useState(); 
+  const [ loading, setLoading ] = useState(false);
+
+  useEffect(() => {
+    const getPerson = async () => {
+      try {
+        setLoading(true);
+        const response = await axiosInstance.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/personDetails`, {
+          params: {
+            actorId
+          }
+        })
+        setPerson(response.data)
+      } catch (err) {
+        console.error('getPerson hata: ' + err);
+        seterror(err.response.data.msg || 'Bilinmeyen Hata');
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    getPerson();
+  }, []);
 
   useEffect(() => {
     const fetchMovieCredits = async () => {
       try {
-        const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getPersonMovies`, {
+        const response = await axiosInstance.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getPersonMovies`, {
           params: { actorId }
         });
         setMovieCredits(response.data.cast || []);
@@ -32,12 +56,24 @@ const PersonDetailScreen = () => {
   }, [person]);
 
   if (loading) return <ActivityIndicator size={'large'} style={styles.loader} />;
-  if (error) return (
-    <View style={styles.errorContainer}>
-      <FontAwesome name="exclamation-triangle" size={40} color="#e74c3c" />
-      <Text style={styles.errorText}>Kişi bilgileri yüklenemedi</Text>
-    </View>
-  );
+
+  if (error === 'Yetişkin içerik.') {
+      return (
+      <View style={styles.errorContainer}>
+        <FontAwesome name="exclamation-triangle" size={40} color="#e74c3c" />
+        <Text style={styles.errorText}>Yetişkin İçerik</Text>
+        <Text style={[styles.errorText, {fontSize: 13}]}>Yetişkin içeriğe erişebilmek için lütfen profil sayfasından izni açın</Text>
+      </View>
+    )
+  } else if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <FontAwesome name="exclamation-triangle" size={40} color="#e74c3c" />
+        <Text style={styles.errorText}>Kişi bilgileri yüklenemedi</Text>
+      </View>
+    )
+  };
+
   if (!person) return (
     <View style={styles.errorContainer}>
       <FontAwesome name="user-times" size={40} color="#e74c3c" />

@@ -55,7 +55,10 @@ const DetailScreen = () => {
   const [listError, setListError] = useState(null);
   const [crListError, setCrListError] = useState(null);
 
-  const { loading, error, data: movie } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, { id });
+  const [ loading, setLoading ] = useState(false);
+  const [ movie, setMovie] = useState([]);
+  const [ error, setError ] = useState('');
+
   const { loading: recommendLoading, error: recommendError, data } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/recommendMovies`, { id });
   const { loading: actorLoading, error: actorError, data: actorData } = useGet(`${process.env.EXPO_PUBLIC_SERVER_URL}/credits`, { id });
 
@@ -89,6 +92,27 @@ const DetailScreen = () => {
       fetchLists();
     }
   }, [showListModal]);
+
+  useEffect(() => {
+    const getMovie = async () => {
+      try {
+        setLoading(true);
+        const response = await axiosInstance.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/getMovie`, {
+          params: {
+            id
+          }
+        });
+        setMovie(response.data);
+      } catch (err) {
+        console.error('error: ' + err);
+        setError(err.response.data.msg || 'Bilinmeyen Hata');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getMovie();
+  }, []);
 
   if (loading) return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FFFFFF' }}>

@@ -11,7 +11,8 @@ import {
   Animated,
   TouchableHighlight,
   Dimensions,
-  TextInput
+  TextInput,
+  ActivityIndicator
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import axiosInstance from '../../../../components/axiosInstance';
@@ -43,6 +44,10 @@ const UserLists = () => {
 
     getData();
   }, [refreshing]);
+
+  if(!data) {
+    return <ActivityIndicator size={'large'} />
+  }
 
   useEffect(() => {
     handleSearch(searchQuery);
@@ -159,6 +164,14 @@ const UserLists = () => {
       </View>
     );
   };
+
+  if(data.length <= 0) {
+    return (
+      <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+        <Text>Henüz Hiç Listeniz Yok.</Text>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
