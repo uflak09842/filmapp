@@ -472,6 +472,7 @@ const DetailScreen = () => {
               <TouchableOpacity 
                 style={{ position: 'absolute', top: 50, right: 20, zIndex: 10 }}
                 onPress={() => router.back() /*push('/search/SearchScreen')*/}
+                onLongPress={() => router.replace('/home')}
               >
                 <View style={{ backgroundColor: 'rgba(255,255,255,0.7)', borderRadius: 20, padding: 8, borderWidth: 1, borderColor: '#4F709C' }}>
                   <FontAwesome name="arrow-left" size={24} color="#4F709C" />

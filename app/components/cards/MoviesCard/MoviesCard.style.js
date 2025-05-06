@@ -6,7 +6,6 @@ const columnWidth = width / 3 - 16;
 export default StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: 'red',
   },
   listView: {
     margin: 5,
@@ -82,7 +81,7 @@ export default StyleSheet.create({
     marginHorizontal: 5,
   },
   fullWidthButton: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#4F709C',
     flex: 1,
   },
   delete: {
