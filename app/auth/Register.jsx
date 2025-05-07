@@ -191,15 +191,17 @@ const Register = () => {
                   </Text>
                 </View>
 
-                <View style={styles.divider}>
-                  <View style={styles.dividerLine} />
-                  <Text style={styles.dividerText}>VEYA</Text>
-                  <View style={styles.dividerLine} />
-                </View>
+                {/*
+                  <View style={styles.divider}>
+                    <View style={styles.dividerLine} />
+                    <Text style={styles.dividerText}>VEYA</Text>
+                    <View style={styles.dividerLine} />
+                  </View>
 
-                <TouchableOpacity style={styles.socialButton}>
-                  <Text style={styles.socialButtonText}>Google ile Kayıt Ol</Text>
-                </TouchableOpacity>
+                  <TouchableOpacity style={styles.socialButton}>
+                    <Text style={styles.socialButtonText}>Google ile Kayıt Ol</Text>
+                  </TouchableOpacity>
+                */}
               </View>
             )}
           </Formik>

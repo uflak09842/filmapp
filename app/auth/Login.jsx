@@ -111,25 +111,28 @@ const Login = () => {
                   )}
                 </View>
 
-                <TouchableOpacity style={styles.forgotPassword}>
+                {/*<TouchableOpacity style={styles.forgotPassword}>
                   <Text style={styles.linkText}>Şifremi Unuttum</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>*/}
 
                 {status && <Text style={styles.statusError}>{status}</Text>}
 
                 <TouchableOpacity style={styles.registerButton} onPress={handleSubmit}>
                   <Text style={styles.registerButtonText}>Giriş Yap</Text>
                 </TouchableOpacity>
+                
+                {/*
+                  <View style={styles.divider}>
+                    <View style={styles.dividerLine} />
+                    <Text style={styles.dividerText}>VEYA</Text>
+                    <View style={styles.dividerLine} />
+                  </View>
 
-                <View style={styles.divider}>
-                  <View style={styles.dividerLine} />
-                  <Text style={styles.dividerText}>VEYA</Text>
-                  <View style={styles.dividerLine} />
-                </View>
-
-                <TouchableOpacity style={styles.socialButton}>
-                  <Text style={styles.socialButtonText}>Google ile Giriş Yap</Text>
-                </TouchableOpacity>
+                  <TouchableOpacity style={styles.socialButton}>
+                    <Text style={styles.socialButtonText}>Google ile Giriş Yap</Text>
+                  </TouchableOpacity>
+                */}
+                
               </View>
             )}
           </Formik>
