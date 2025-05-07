@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { 
   View, 
   Text, 
@@ -12,10 +12,12 @@ import {
   TouchableHighlight,
   Dimensions,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  RefreshControl
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import axiosInstance from '../../../../components/axiosInstance';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window');
 
@@ -36,7 +38,11 @@ const UserLists = () => {
         setData(response.data);
         setFilteredData(response.data);
         setRefreshing(false);
+        console.log(response.data)
       } catch (error) {
+        if(error?.response?.data?.msg) {
+          setData([]);
+        };
         console.error('Error fetching user lists:', error);
         setRefreshing(false);
       }
@@ -52,6 +58,13 @@ const UserLists = () => {
   useEffect(() => {
     handleSearch(searchQuery);
   }, [searchQuery]);
+
+  const onRefresh = useCallback(() => {
+      setRefreshing(true);
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 1000);
+  }, []);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -159,7 +172,9 @@ const UserLists = () => {
     }
     
     return (
-      <View style={styles.centered}>
+      <View 
+        style={styles.centered}
+      >
         <Text>Hiç liste bulunamadı.</Text>
       </View>
     );
@@ -167,9 +182,14 @@ const UserLists = () => {
 
   if(data.length <= 0) {
     return (
-      <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-        <Text>Henüz Hiç Listeniz Yok.</Text>
-      </View>
+      <ScrollView 
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        style={{alignSelf: 'center'}}
+      >
+        <Text>Hiç liste bulunamadı.</Text>
+      </ScrollView>
     )
   }
 

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { 
   View,
   Text, 
   ActivityIndicator,
   StyleSheet,
   ScrollView,
+  TouchableOpacit,
+  RefreshControl,
   TouchableOpacity
 } from 'react-native';
 import axiosInstance from '../../../../components/axiosInstance';
@@ -39,7 +41,7 @@ const LikedMovies = () => {
         years: [],
         productions: []
     });
-
+    
     const getMovies = async (page = 1, shouldAppend = false) => {
         try {
             if (page === 1) setLoading(true);
@@ -68,6 +70,13 @@ const LikedMovies = () => {
             setRefreshing(false);
         }
     };
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+          setRefreshing(false);
+        }, 1000);
+    }, []);
 
     const updateFilterOptions = (movies) => {
         const genresSet = new Set();
@@ -152,7 +161,7 @@ const LikedMovies = () => {
 
     useEffect(() => {
         getMovies();
-    }, []);
+    }, [refreshing]);
 
     const handleRefresh = () => {
         if (!refreshing) {
@@ -206,9 +215,15 @@ const LikedMovies = () => {
 
     if(movies.length <= 0) {
         return (
-            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+                style={{flex: 1, alignSelf: 'center'}}
+                contentContainerStyle={{justifyContent: 'center'}}
+            >
                 <Text>Henüz Beğendiğiniz Bir Film Yok.</Text>
-            </View>
+            </ScrollView>
         )
     }
 

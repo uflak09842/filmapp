@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { 
   View,
   Text, 
   ActivityIndicator,
   StyleSheet,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  RefreshControl
 } from 'react-native';
 import axiosInstance from '../../../../components/axiosInstance';
 import { router } from 'expo-router';
@@ -152,7 +153,7 @@ const WatchedMovies = () => {
 
     useEffect(() => {
         getMovies();
-    }, []);
+    }, [refreshing]);
 
     const handleRefresh = () => {
         if (!refreshing) {
@@ -161,6 +162,13 @@ const WatchedMovies = () => {
             getMovies(1, false);
         }
     };
+
+    const onRefresh = useCallback(() => {
+          setRefreshing(true);
+          setTimeout(() => {
+            setRefreshing(false);
+          }, 1000);
+    }, []);
 
     const handleLoadMore = () => {
         if (pagination.hasMorePages && !loading) {
@@ -206,9 +214,12 @@ const WatchedMovies = () => {
 
     if(movies.length <= 0) {
         return (
-            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+            <ScrollView 
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                style={{flex: 1, alignSelf: 'center'}}
+            >
                 <Text>Henüz İzlediğiniz Bir Film Yok.</Text>
-            </View>
+            </ScrollView>
         )
     }
 
