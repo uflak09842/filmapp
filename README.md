@@ -2,7 +2,7 @@
 [TMDB](https://www.themoviedb.org/) api kullanarak hazırlamış olduğum film öneri uygulaması.
 <br/>
 <br/>
-[Youtube tanıtım vieo](https://www.youtube.com/watch?v=UHRMkFRIgOc&t=41s)
+[Youtube tanıtım video](https://www.youtube.com/watch?v=UHRMkFRIgOc&t=41s)
 <br/>
 [![filmapp](https://img.youtube.com/vi/UHRMkFRIgOc/0.jpg)](https://www.youtube.com/watch?v=UHRMkFRIgOc&t=00m41s)
 
