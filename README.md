@@ -1,7 +1,7 @@
 # 🎬 Film App
 [TMDB](https://www.themoviedb.org/) api kullanarak hazırlamış olduğum film öneri uygulaması.
 
-[![filmapp](https://img.youtube.com/vi/UHRMkFRIgOc/0.jpg)](https://www.youtube.com/watch?v=UHRMkFRIgOc)
+[![filmapp](https://img.youtube.com/vi/UHRMkFRIgOc/0.jpg)](https://www.youtube.com/watch?v=UHRMkFRIgOc&t=00m41s)
 
 # Kullanılan Teknolojiler
 1. Frontend
