@@ -1,7 +1,9 @@
 # 🎬 Film App
 [TMDB](https://www.themoviedb.org/) api kullanarak hazırlamış olduğum film öneri uygulaması.
-
-[Youtube](https://www.youtube.com/watch?v=UHRMkFRIgOc&t=41s)
+<br/>
+<br/>
+[Youtube tanıtım vieo](https://www.youtube.com/watch?v=UHRMkFRIgOc&t=41s)
+<br/>
 [![filmapp](https://img.youtube.com/vi/UHRMkFRIgOc/0.jpg)](https://www.youtube.com/watch?v=UHRMkFRIgOc&t=00m41s)
 
 ## Kullanılan Teknolojiler
